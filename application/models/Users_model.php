@@ -58,5 +58,21 @@ class Users_model extends CI_Model {
         }
     }
     
+    public function countEmail($email) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('users');
+        return $query->num_rows();
+    }
+    
+    public function login($email, $password) {
+        $this->db->select('*');
+        $this->db->where('email', $email);
+        $password = md5($password);
+        $this->db->where('password', $password);
+        $query = $this->db->get('users');
+        return $query->result();
+
+    }
+    
 }
 ?>

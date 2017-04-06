@@ -65,4 +65,6 @@ $route['api/user/(:num)']["put"] = 'User/update/$1';
 $route['api/user']["delete"] = 'User/malformed';
 $route['api/user/(:num)']["delete"] = 'User/delete/$1';
 
+$route['api/user/login']["post"] = 'User/login';
 $route['api/user/search']["post"] = 'User/search';
+
