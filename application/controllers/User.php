@@ -135,12 +135,12 @@ class User extends CI_Controller {
             
             $http_status = 400;
         }
-        $this->show($this->status, 400);
+        $this->show($this->status, $http_status);
     }
     
     
     /**
-     * https://relifecloud-nonodev96.c9users.io/api/user
+     * https://relifecloud-nonodev96.c9users.io/api/user/1
     {
         "id":"",
         "nickname":"",

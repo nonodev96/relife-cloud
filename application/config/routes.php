@@ -54,6 +54,8 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+/* User */
+
 $route['api/user']["get"] = 'User/malformed';
 $route['api/user/(:num)']["get"] = 'User/get/$1';
 
@@ -68,3 +70,18 @@ $route['api/user/(:num)']["delete"] = 'User/delete/$1';
 $route['api/user/login']["post"] = 'User/login';
 $route['api/user/search']["post"] = 'User/search';
 
+/* END user */
+/* Product */
+
+$route['api/product']["get"] = 'Product/malformed';
+$route['api/product/(:num)']["get"] = 'Product/get/$1';
+
+$route['api/product']["post"] = 'Product/insert';
+
+$route['api/product']["put"] = 'Product/malformed';
+$route['api/product/(:num)']["put"] = 'Product/update/$1';
+
+$route['api/product']["delete"] = 'Product/malformed';
+$route['api/product/(:num)']["delete"] = 'Product/delete/$1';
+
+/* END Product */
