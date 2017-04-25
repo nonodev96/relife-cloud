@@ -50,40 +50,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'Index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-/* User */
+//region User
+$route['api/user']["get"] = 'API/User/malformed';
+$route['api/user/(:num)']["get"] = 'API/User/get/$1';
 
-$route['api/user']["get"] = 'User/malformed';
-$route['api/user/(:num)']["get"] = 'User/get/$1';
+$route['api/user']["post"] = 'API/User/insert';
 
-$route['api/user']["post"] = 'User/insert';
+$route['api/user']["put"] = 'API/User/malformed';
+$route['api/user/(:num)']["put"] = 'API/User/update/$1';
 
-$route['api/user']["put"] = 'User/malformed';
-$route['api/user/(:num)']["put"] = 'User/update/$1';
+$route['api/user']["delete"] = 'API/User/malformed';
+$route['api/user/(:num)']["delete"] = 'API/User/delete/$1';
 
-$route['api/user']["delete"] = 'User/malformed';
-$route['api/user/(:num)']["delete"] = 'User/delete/$1';
+$route['api/user/login']["post"] = 'API/User/login';
+$route['api/user/search']["post"] = 'API/User/search';
+//endregion
 
-$route['api/user/login']["post"] = 'User/login';
-$route['api/user/search']["post"] = 'User/search';
+//region Product
+$route['api/product']["get"] = 'API/Product/malformed';
+$route['api/product/(:num)']["get"] = 'API/Product/get/$1';
 
-/* END user */
-/* Product */
+$route['api/product']["post"] = 'API/Product/insert';
 
-$route['api/product']["get"] = 'Product/malformed';
-$route['api/product/(:num)']["get"] = 'Product/get/$1';
+$route['api/product']["put"] = 'API/Product/malformed';
+$route['api/product/(:num)']["put"] = 'API/Product/update/$1';
 
-$route['api/product']["post"] = 'Product/insert';
+$route['api/product']["delete"] = 'API/Product/malformed';
+$route['api/product/(:num)']["delete"] = 'API/Product/delete/$1';
 
-$route['api/product']["put"] = 'Product/malformed';
-$route['api/product/(:num)']["put"] = 'Product/update/$1';
-
-$route['api/product']["delete"] = 'Product/malformed';
-$route['api/product/(:num)']["delete"] = 'Product/delete/$1';
-
-$route['api/product/getProductsOfToday']["get"] = 'Product/getProductsOfToday';
-
-/* END Product */
+$route['api/product/getProductsOfToday']["get"] = 'API/Product/getProductsOfToday';
+//endregion
