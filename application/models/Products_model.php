@@ -38,6 +38,19 @@ class Products_model extends CI_Model {
             return false;
         }
     }
-    
+        
+    public function getProductsOfToday() {
+        $array = array();
+        $date = new DateTime("now");
+        $curr_date = $date->format('Y-m-d ');
+        $this->db->select('p.*, u.nickname, u.first_name, u.last_name, u.email, u.profile_avatar');
+        $this->db->from('products as p');
+        $this->db->join('users as u', 'p.id_user = u.id');
+        $this->db->where('p.datetime_product >= now() - INTERVAL 24 HOUR');
+        $this->db->order_by("p.datetime_product", "ASC");
+        $query = $this->db->get();
+
+        return $query->result();
+    }
 }
 ?>

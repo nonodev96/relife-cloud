@@ -117,6 +117,23 @@ class Product extends CI_Controller {
             $data["datetime_product"] = date("Y-m-d H:i:s");
             $insert_id = $this->Products_model->insert($data);
             if(!empty($insert_id)) {
+                if (!empty($data["image"])) {
+    				$image = $data["image"];
+    				$image_base_64["string_64"] = explode(",", $image)[1];
+    				$image_base_64["base64"] = explode(";",  explode(",", $image)[0])[1];
+    				$image_base_64["type"] = explode(";", explode("/", $image)[1])[0];
+    				$image_base_64["data_image"] = explode("/",  $image)[0];
+    
+    				$data["image"] = "product_" . $insert_id . "." . $image_base_64["type"];
+    				$base64_decode = base64_decode($image_base_64["string_64"]);
+                    if ($base64_decode != false) {
+    				    file_put_contents(getcwd() . '/assets/images/products/' . $data["image"], $base64_decode);
+                    } else {
+                        $this->status["meta"]["image"] = "Decode image base64 error";   
+                    }
+    			}
+	        	$update_by_id = $this->Products_model->updateById($data, $insert_id);
+
                 $this->status["data"]["id"] = $insert_id;
 				$http_status = 201;
 			}
@@ -127,7 +144,6 @@ class Product extends CI_Controller {
         }
         $this->show($this->status, $http_status);
     }
-    
     
     /**
      * https://relifecloud-nonodev96.c9users.io/api/product/1
@@ -159,7 +175,6 @@ class Product extends CI_Controller {
 
 				if (!empty($data["image"])) {
 					$image = $data["image"];
-
 					$image_base_64["string_64"] = explode(",", $image)[1];
 					$image_base_64["base64"] = explode(";",  explode(",", $image)[0])[1];
 					$image_base_64["type"] = explode(";", explode("/", $image)[1])[0];
@@ -168,15 +183,15 @@ class Product extends CI_Controller {
 					$data["image"] = "product_" . $id . "." . $image_base_64["type"];
 					$base64_decode = base64_decode($image_base_64["string_64"]);
                     if ($base64_decode != false) {
-					    file_put_contents(getcwd() . '/assets/images/products/' . $data["profile_avatar"], $base64_decode);
+					    file_put_contents(getcwd() . '/assets/images/products/' . $data["image"], $base64_decode);
+                    } else {
+                        $this->status["meta"]["image"] = "Decode image base64 error";   
                     }
 				}
-
 	        	$update_by_id = $this->Products_model->updateById($data, $id);
 				$this->status["data"] = $update_by_id;
 	        } else {
 	            $this->all_correct($all_correct);
-	                
 		    	$http_status = 400;
 	        }
 		} else {
@@ -206,16 +221,54 @@ class Product extends CI_Controller {
 				$this->status["data"]["delete"] = true;
 			} else {
 				$this->status["data"]["delete"] = false;
-			}
+				$this->status["meta"]["delete"] = "The product could not be deleted";
+		}
 		} else {
+			$this->status["meta"]["delete"] = "The product not exist";
 			$this->status["data"]["delete"] = false;
 			$status = 404;
 		}
 		$this->show($this->status, $status);
     }
     
+    /**
+     * https://relifecloud-nonodev96.c9users.io/api/product/getProductsOfToday
+     */
+    public function getProductsOfToday() {
+ 		$getProductsOfToday = $this->Products_model->getProductsOfToday();
+		$status = 200;
+ 		if (!empty($getProductsOfToday)){
+    		$this->status["data"] = $getProductsOfToday;
+ 		} else {
+ 		    $this->status["meta"]["error"] = "No products for today";
+ 			$status = 200;
+    	}
+		$this->show($this->status, $status);
+    }
     
-    public function all_correct($all_correct) {
+    /**
+     * https://relifecloud-nonodev96.c9users.io/product/search
+    {
+      "terms": {
+        "nickname": "",
+        "email": ""
+      },
+      "order": {
+          
+      }
+    }
+    */
+    public function search() {
+        echo "search";
+        if (true) {
+            
+        }
+    }
+    
+    /**
+     * Funcions
+     */
+    private function all_correct($all_correct) {
         if ($all_correct["id_user"] == false) {
             $this->status["meta"]["id_user"] = "I do not know who you are, tell me your user id";
         }
@@ -235,29 +288,13 @@ class Product extends CI_Controller {
             $this->status["meta"]["image"] = "An image is needed";
         }
     }
-    
-    /**
-     * https://relifecloud-nonodev96.c9users.io/user/search
-    {
-      "terms": {
-        "nickname": "",
-        "email": ""
-      },
-      "order": {
-          
-      }
-    }
-    */
-    public function search() {
-        echo "search";
-    }
    
-	public function malformed() {
+	private function malformed() {
 		$this->status["meta"]["error"] = "URIError: URI malformed";
 		echo json_encode($this->status, 400);
 	}
 	
-    public function show($data, $status_http = 200) {
+    private function show($data, $status_http = 200) {
         $in_array_status_http = in_array($status_http, array(400));
         try{
             if (!empty($data) and $in_array_status_http == false) {

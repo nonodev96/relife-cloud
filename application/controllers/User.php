@@ -12,10 +12,14 @@ class User extends CI_Controller {
         parent::__construct();
         $this->load->model("Users_model");
         $this->output->set_content_type('application/json');
-        
+        header('Access-Control-Allow-Origin: *');
+        header('Cache-Control: no-cache');
+        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+
         if (isset($_SERVER['HTTP_ORIGIN'])) {
-            header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-            header('Access-Control-Allow-Credentials: true');
+            // header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+            // header('Access-Control-Allow-Credentials: true');
             // header('Access-Control-Max-Age: 86400');    // cache for 1 day
         }
     }
@@ -180,10 +184,12 @@ class User extends CI_Controller {
 					$image_base_64["type"] = explode(";", explode("/", $profile_avatar)[1])[0];
 					$image_base_64["data_image"] = explode("/",  $profile_avatar)[0];
 
-					$data["profile_avatar"] = "user_" . $id . "." . $image_base_64["type"];
 					$base64_decode = base64_decode($image_base_64["string_64"]);
                     if ($base64_decode != false) {
+    					$data["profile_avatar"] = "user_" . $id . "." . $image_base_64["type"];
 					    file_put_contents(getcwd() . '/assets/images/users/' . $data["profile_avatar"], $base64_decode);
+                    } else {
+                        $data["profile_avatar"] = "stop";
                     }
 				}
 

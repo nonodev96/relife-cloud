@@ -84,4 +84,6 @@ $route['api/product/(:num)']["put"] = 'Product/update/$1';
 $route['api/product']["delete"] = 'Product/malformed';
 $route['api/product/(:num)']["delete"] = 'Product/delete/$1';
 
+$route['api/product/getProductsOfToday']["get"] = 'Product/getProductsOfToday';
+
 /* END Product */
