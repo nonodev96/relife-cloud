@@ -40,9 +40,6 @@ class Products_model extends CI_Model {
     }
         
     public function getProductsOfToday() {
-        $array = array();
-        $date = new DateTime("now");
-        $curr_date = $date->format('Y-m-d ');
         $this->db->select('p.*, u.nickname, u.first_name, u.last_name, u.email, u.profile_avatar');
         $this->db->from('products as p');
         $this->db->join('users as u', 'p.id_user = u.id');
@@ -53,4 +50,3 @@ class Products_model extends CI_Model {
         return $query->result();
     }
 }
-?>

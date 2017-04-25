@@ -1,24 +1,6 @@
 <?php
 class Users_model extends CI_Model {
     
-    /*
-    SQL:
-    
-    CREATE DATABASE relife;
-    CREATE TABLE IF NOT EXISTS `users` (
-        `nickname` varchar(50) COLLATE utf8_unicode_ci DEFAULT NOT NULL,
-        `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-        `last_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-        `email` varchar(340) COLLATE utf8_unicode_ci DEFAULT NOT NULL,
-        `password` varchar(40) COLLATE utf8_unicode_ci DEFAULT NOT NULL,
-        `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-        `join_date` datetime DEFAULT NOT NULL,
-        `birth_date` datetime NOT NULL,
-        `profile_avatar` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-    )
-       
-    */
-    
     public function getAllUsers() {
         $query = $this->db->get('users');
         return $query->result();
@@ -39,8 +21,7 @@ class Users_model extends CI_Model {
     
     public function updateById($data, $id) {
         $this->db->where('id', $id);
-        $this->db->update('users', $data); 
-        
+        $this->db->update('users', $data);
         return $this->getUserByID($id);
     }
     
@@ -71,8 +52,6 @@ class Users_model extends CI_Model {
         $this->db->where('password', $password);
         $query = $this->db->get('users');
         return $query->result();
-
     }
     
 }
-?>
