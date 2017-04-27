@@ -5,7 +5,13 @@ class Users_model extends CI_Model {
         $query = $this->db->get('users');
         return $query->result();
     }
-    
+
+    public function getTotalUsers() {
+        $this->db->from('users');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
     public function getUserByID($id) {
         $this->db->select('*');
         $this->db->where('id', $id);
@@ -16,7 +22,7 @@ class Users_model extends CI_Model {
     public function insert($data) {
         $this->db->insert('users', $data);
         $insert_id = $this->db->insert_id();
-        return  $insert_id;
+        return $insert_id;
     }
     
     public function updateById($data, $id) {
@@ -58,8 +64,7 @@ class Users_model extends CI_Model {
         $result = array();
         $last_week = new DateTime();
         $last_week->modify("-7 day");
-        $now = new DateTime();
-        
+
         for ($i = 0; $i <= 7; $i++) {
             $this->db->where('Date(join_date)', date_format($last_week, 'Y-m-d'));
             $query = $this->db->get('users');

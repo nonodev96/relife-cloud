@@ -15,6 +15,7 @@ class Users extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Back_end_model');
+        $this->load->model('Users_model');
         $logged_in = $this->session->userdata('logged_in');
         if ($logged_in != true) {
             redirect ('index/login');
@@ -22,7 +23,7 @@ class Users extends CI_Controller {
     }
     
     public function index() {
-        $data["all_users"] = $this->Back_end_model->get_all_users();
+        $data["all_users"] = $this->Users_model->getAllUsers();
         $data["templates"]["users"]['title'] = "Usuarios";
         $data["templates"]["users"]['content'] = $this->load->view('users/index', $data, true);
         $this->load->view('templates/header', $data);
@@ -32,7 +33,7 @@ class Users extends CI_Controller {
     }  
     
     public function edit($id) {
-        $data["getUserByID"] = $this->Back_end_model->getUserByID($id);
+        $data["getUserByID"] = $this->Users_model->getUserByID($id);
         $data["templates"]["edit"]['title'] = "Editar: ";
         $data["templates"]["edit"]['content'] = $this->load->view('users/edit', $data, true);
         $this->load->view('templates/header', $data);
@@ -40,11 +41,9 @@ class Users extends CI_Controller {
         $this->load->view('templates/content', $data);
         $this->load->view('templates/scripts', $data);
     }  
-    
-    
-    
+
     public function database() {
-        $data["all_users"] = $this->Back_end_model->get_all_users();
+        $data["all_users"] = $this->Users_model->getAllUsers();
         $data["templates"]["users"]['title'] = "Usuarios";
         $data["templates"]["users"]['content'] = $this->load->view('users/database_table_users', $data, true);
         $data["module"]["database_table_user"] = true;

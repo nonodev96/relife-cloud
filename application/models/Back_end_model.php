@@ -24,21 +24,4 @@ class Back_end_model extends CI_Model {
             return false;
         }
     }
-    
-    public function get_all_users() {
-        $query = $this->db->get('users');
-        return $query->result();
-    }
-    
-    public function get_number_users() {
-        $this->db->from('users');
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
-    
-    public function get_number_products() {
-        $this->db->from('products');
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
 }

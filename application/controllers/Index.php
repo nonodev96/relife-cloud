@@ -5,7 +5,6 @@ class Index extends CI_Controller {
 
     var $data = array(
         "templates" => array(
-            
         )
     );
 
@@ -23,18 +22,17 @@ class Index extends CI_Controller {
         }
     }
 
-
     public function index() {
         $data = $this->data;
         //region DASHBOARD USERS
-        $data["dashboard"]["total_users"] = $this->Back_end_model->get_number_users();
+        $data["dashboard"]["total_users"] = $this->Users_model->getTotalUsers();
         $data["dashboard"]["dashboard_users"] = $this->Users_model->dashboard();
-        $data["dashboard"]["dashboard_users_chart_js"] = $this->dashboard_chartjs($data["dashboard"]["dashboard_users"]);
+        $data["dashboard"]["dashboard_users_chart_js"] = $this->dashboardChartjs($data["dashboard"]["dashboard_users"]);
         //endregion
         //region DASHBOARD USERS
-        $data["dashboard"]["total_products"] = $this->Back_end_model->get_number_products();
+        $data["dashboard"]["total_products"] = $this->Products_model->getAllProducts();
         $data["dashboard"]["dashboard_products"] = $this->Products_model->dashboard();
-        $data["dashboard"]["dashboard_products_chart_js"] = $this->dashboard_chartjs($data["dashboard"]["dashboard_products"]);
+        $data["dashboard"]["dashboard_products_chart_js"] = $this->dashboardChartjs($data["dashboard"]["dashboard_products"]);
         //endregion
         $data["templates"]["dashboard"]["title"] = "Dashboard";
         $data["templates"]["dashboard"]["content"] = $this->load->view('dashboard/index', $data, true);
@@ -75,13 +73,13 @@ class Index extends CI_Controller {
         redirect('index/index');
     }
     
-    private function dashboard_chartjs($dashboard) {
+    private function dashboardChartjs($dashboard) {
         $return = array(
             "labels"=>"",
             "data"=>""
         );
         foreach ($dashboard as $key => $value) {
-          $date_letters = $this->spanish_date(strftime('%A', strtotime($value["date"])));
+          $date_letters = $this->dateInSpanish(strftime('%A', strtotime($value["date"])));
           $date_number = strftime('%d', strtotime($value["date"]));
           
           $return["labels"] .= '"' . $date_letters . ', ' . $date_number . '",';
@@ -94,7 +92,7 @@ class Index extends CI_Controller {
         return $return;
     }
     
-    private function spanish_date($date_letters) {
+    private function dateInSpanish($date_letters) {
         $return = "";
         switch ($date_letters) {
             case "Monday": 
@@ -105,9 +103,6 @@ class Index extends CI_Controller {
                 break;
             case "Wednesday": 
                 $return = "Miércoles"; 
-                break;
-            case "Thursday": 
-                $return = "Jueves"; 
                 break;
             case "Thursday": 
                 $return = "Jueves"; 

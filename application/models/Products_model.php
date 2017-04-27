@@ -5,7 +5,13 @@ class Products_model extends CI_Model {
         $query = $this->db->get('products');
         return $query->result();
     }
-    
+
+    public function getTotalProducts() {
+        $this->db->from('products');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
     public function getProductByID($id) {
         $this->db->select('*');
         $this->db->where('id', $id);
