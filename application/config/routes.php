@@ -68,6 +68,7 @@ $route['api/user/(:num)']["delete"] = 'API/User/delete/$1';
 
 $route['api/user/login']["post"] = 'API/User/login';
 $route['api/user/search']["post"] = 'API/User/search';
+$route['api/user/dashboard']["get"] = 'API/User/dashboard';
 //endregion
 
 //region Product
@@ -83,4 +84,6 @@ $route['api/product']["delete"] = 'API/Product/malformed';
 $route['api/product/(:num)']["delete"] = 'API/Product/delete/$1';
 
 $route['api/product/getProductsOfToday']["get"] = 'API/Product/getProductsOfToday';
+$route['api/product/dashboard']["get"] = 'API/Product/dashboard';
+
 //endregion

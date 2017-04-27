@@ -222,6 +222,12 @@ class Product extends CI_Controller {
         }
         $this->show($this->status, $status);
     }
+    
+    public function dashboard($id = 0) {
+        $status = 200;
+        $this->status["data"] = $this->Products_model->dashboard();
+        $this->show($this->status, $status);
+    }
 
     public function search() {
         echo "search";

@@ -49,4 +49,19 @@ class Products_model extends CI_Model {
 
         return $query->result();
     }
+    
+    public function dashboard() {
+        $result = array();
+        $last_week = new DateTime();
+        $last_week->modify("-7 day");
+        $now = new DateTime();
+        for ($i = 0; $i <= 7; $i++) {
+            $this->db->where('Date(datetime_product)', date_format($last_week, 'Y-m-d'));
+            $query = $this->db->get('products');
+            $result[$i]["total"] = $query->num_rows();
+            $result[$i]["date"] = date_format($last_week, 'Y-m-d');
+            $last_week->modify("+1 day");
+        }
+        return $result;
+    }
 }

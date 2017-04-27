@@ -1,64 +1,44 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
+
 <head>
-<meta charset="utf-8">
-<title>404 Page Not Found</title>
-<style type="text/css">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>404 | Bootstrap Based Admin Template - Material Design</title>
+    <!-- Favicon-->
+    <link rel="icon" href="https://relifecloud-nonodev96.c9users.io/favicon.ico" type="image/x-icon">
 
-::selection { background-color: #E13300; color: white; }
-::-moz-selection { background-color: #E13300; color: white; }
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
-body {
-	background-color: #fff;
-	margin: 40px;
-	font: 13px/20px normal Helvetica, Arial, sans-serif;
-	color: #4F5155;
-}
+    <!-- Bootstrap Core Css -->
+    <link href="https://relifecloud-nonodev96.c9users.io/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-a {
-	color: #003399;
-	background-color: transparent;
-	font-weight: normal;
-}
+    <!-- Waves Effect Css -->
+    <link href="https://relifecloud-nonodev96.c9users.io/assets/plugins/node-waves/waves.css" rel="stylesheet" />
 
-h1 {
-	color: #444;
-	background-color: transparent;
-	border-bottom: 1px solid #D0D0D0;
-	font-size: 19px;
-	font-weight: normal;
-	margin: 0 0 14px 0;
-	padding: 14px 15px 10px 15px;
-}
-
-code {
-	font-family: Consolas, Monaco, Courier New, Courier, monospace;
-	font-size: 12px;
-	background-color: #f9f9f9;
-	border: 1px solid #D0D0D0;
-	color: #002166;
-	display: block;
-	margin: 14px 0 14px 0;
-	padding: 12px 10px 12px 10px;
-}
-
-#container {
-	margin: 10px;
-	border: 1px solid #D0D0D0;
-	box-shadow: 0 0 8px #D0D0D0;
-}
-
-p {
-	margin: 12px 15px 12px 15px;
-}
-</style>
+    <!-- Custom Css -->
+    <link href="https://relifecloud-nonodev96.c9users.io/assets/css/style.css" rel="stylesheet">
 </head>
-<body>
-	<div id="container">
-		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
-	</div>
+
+<body class="four-zero-four">
+    <div class="four-zero-four-container">
+        <div class="error-code">404</div>
+        <div class="error-message">Te has perdido </div>
+        <div class="button-place">
+            <a href="https://relifecloud-nonodev96.c9users.io/" class="btn btn-default btn-lg waves-effect">Ir a la página principal</a>
+        </div>
+    </div>
+
+    <!-- Jquery Core Js -->
+    <script src="https://relifecloud-nonodev96.c9users.io/assets/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="https://relifecloud-nonodev96.c9users.io/assets/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="https://relifecloud-nonodev96.c9users.io/assets/plugins/node-waves/waves.js"></script>
 </body>
+
 </html>
