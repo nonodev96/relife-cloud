@@ -69,6 +69,11 @@ $route['api/user/(:num)']["delete"] = 'API/User/delete/$1';
 $route['api/user/login']["post"] = 'API/User/login';
 $route['api/user/search']["post"] = 'API/User/search';
 $route['api/user/dashboard']["get"] = 'API/User/dashboard';
+
+$route['users/(:num)'] = 'Users/edit/$1';
+$route['users/new'] = 'Users/new_user';
+$route['users/deleteUsers']['post'] = 'Users/deleteUsers';
+$route['users/uploadImage/(:num)']['post'] = 'Users/uploadImage/$1';
 //endregion
 
 //region Product

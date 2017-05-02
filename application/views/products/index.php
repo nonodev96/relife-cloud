@@ -3,7 +3,7 @@
 <!-- Body Copy -->
 <div class="row clearfix">
     <?php
-    if (!empty($total_users_deletes)){
+    if (!empty($total_products_deletes)){
         ?>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="info-box-2 bg-green hover-expand-effect">
@@ -11,7 +11,7 @@
                     <i class="material-icons">check</i>
                 </div>
                 <div class="content">
-                    <div class="text"><?= $total_users_deletes ?> usuarios eliminados</div>
+                    <div class="text"><?= $total_products_deletes ?> Productos eliminados</div>
                     <div class="number">Eliminados</div>
                 </div>
             </div>
@@ -21,11 +21,11 @@
     ?>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
-            <form action="/users/deleteUsers" method="POST" >
+            <form action="/products/deleteProducts" method="POST" >
                 
                 <div class="header">
                     <h2>
-                        Editar usuarios
+                        Editar productos
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
@@ -34,13 +34,13 @@
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 <li>
-                                    <a href="/users/new">
-                                        <i class="material-icons">person_add</i>Nuevo </a>
+                                    <a href="/products/new">
+                                        <i class="material-icons">shopping_cart</i>Nuevo </a>
                                     </li>
                                 <li>
                                     <a href="javascript:void(0);">
                                         <button type="submit" name="deleteByIds" value="delete" class="my-button">
-                                            <i class="material-icons">delete</i>Eliminar usuarios 
+                                            <i class="material-icons">delete</i>Eliminar productos 
                                         </button>
                                     </a>
                                 </li>
@@ -53,32 +53,30 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>NOMBRE</th>
-                                <th>APODO</th>
-                                <th>EMAIL</th>
+                                <th>TITULO</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>FECHA DE PUBLICACIÓN</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            foreach ($all_users as $key => $value) {
+                            foreach ($get_all_products as $key => $value) {
                                 ?>
                                 <tr>
                                     <td>
-                                        <input type="hidden" name="id[]" value="<?=$value->id?>"/>
-                                        <input type="checkbox" name="checkbox_users[]" value="<?= $value->id ?>" id="checkbox_user_<?= $value->id ?>" class="chk-col-light-green" >
-                                        <label for="checkbox_user_<?=$value->id?>"></label>
+                                        <input type="hidden" name="id[]" value="<?= $value->id ?>"/>
+                                        <input type="checkbox" name="checkbox_products[]" value="<?= $value->id ?>" id="checkbox_product_<?= $value->id ?>" class="chk-col-light-green" >
+                                        <label for="checkbox_product_<?=$value->id?>"></label>
                                     </td>
                                     <td>
-                                        <?= $value->first_name ? $value->first_name . ". " : "" ?>
-                                        <?= $value->last_name ?>
-                                        
+                                        <?= $value->title ?>
                                     </td>
-                                    <td><?= $value->nickname ?></td>
-                                    <td><?= $value->email ?></td>
+                                    <td><?= $value->description ?></td>
+                                    <td class="date_time"><?= $value->datetime_product ?></td>
                                     <td>
                                         <a href="javascript:void(0);"><button type="submit" name="deleteByID" value="<?= $value->id ?>" class="my-button"><i class="material-icons">delete</i></button></a>
-                                        <a href="/users/<?=$value->id?>" class="bd-pink"><i class="material-icons">mode_edit</i></a>
+                                        <a href="/products/<?=$value->id?>" class="bd-pink"><i class="material-icons">mode_edit</i></a>
                                     </td>
                                 </tr>
                                 <?php

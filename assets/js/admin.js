@@ -124,7 +124,11 @@ $.AdminBSB.leftSideBar = {
 
             //Scroll active menu item when page load, if option set = true
             if ($.AdminBSB.options.leftSideBar.scrollActiveItemWhenPageLoad) {
-                var activeItemOffsetTop = $('.menu .list li.active')[0].offsetTop
+                try {
+                    var activeItemOffsetTop = $('.menu .list li.active')[0].offsetTop;
+                } catch(error ){
+                    console.warn(error);
+                }
                 if (activeItemOffsetTop > 150) $el.slimscroll({ scrollTo: activeItemOffsetTop + 'px' });
             }
         }

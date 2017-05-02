@@ -6991,11 +6991,11 @@ hooks.defineLocale('es-do', {
 //! locale : Spanish [es]
 //! author : Julio Napurí : https://github.com/julionc
 
-var monthsShortDot$1 = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_');
-var monthsShort$2 = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
+var monthsShortDot$1 = 'Ene._Feb._Mar._Abr._May._Jun._Jul._Ago._Sep._Oct._Nov._Dic.'.split('_');
+var monthsShort$2 = 'Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic'.split('_');
 
 hooks.defineLocale('es', {
-    months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
+    months : 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
     monthsShort : function (m, format) {
         if (!m) {
             return monthsShortDot$1;
@@ -7006,7 +7006,7 @@ hooks.defineLocale('es', {
         }
     },
     monthsParseExact : true,
-    weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
+    weekdays : 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
     weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
     weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
     weekdaysParseExact : true,

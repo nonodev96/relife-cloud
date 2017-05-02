@@ -1,3 +1,31 @@
 html{
     overflow-y: scroll;
 }
+
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
+    background-color: #bf0016 !important;
+}
+
+.dtp .p10 > a {
+    color: #38459f;    
+}
+
+.dtp div.dtp-date, .dtp div.dtp-time {
+    background: #F44336;
+}
+
+.dtp table.dtp-picker-days tr td a.selected {
+    background: #FF5722;
+    color: #fff;
+}
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline: none !important;
+}
+
+.my-button {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}

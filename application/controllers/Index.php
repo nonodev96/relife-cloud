@@ -15,11 +15,6 @@ class Index extends CI_Controller {
         $this->load->model('Products_model');
         $this->load->helper('date');
         $this->load->helper('language');
-
-        $logged_in = $this->session->userdata('logged_in');
-        if($logged_in == null and $_SERVER["PATH_INFO"] != "/index/login") {
-            redirect ('index/login');
-        }
     }
 
     public function index() {
@@ -29,8 +24,8 @@ class Index extends CI_Controller {
         $data["dashboard"]["dashboard_users"] = $this->Users_model->dashboard();
         $data["dashboard"]["dashboard_users_chart_js"] = $this->dashboardChartjs($data["dashboard"]["dashboard_users"]);
         //endregion
-        //region DASHBOARD USERS
-        $data["dashboard"]["total_products"] = $this->Products_model->getAllProducts();
+        //region DASHBOARD PRODUCTS
+        $data["dashboard"]["total_products"] = $this->Products_model->getTotalProducts();
         $data["dashboard"]["dashboard_products"] = $this->Products_model->dashboard();
         $data["dashboard"]["dashboard_products_chart_js"] = $this->dashboardChartjs($data["dashboard"]["dashboard_products"]);
         //endregion
@@ -56,6 +51,8 @@ class Index extends CI_Controller {
     public function login() {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
+        
+        $remember_me_post = $this->input->post('rememberme');
         $result = $this->Back_end_model->login($email, $password);
 
         $data["body_class"] ="login-page";
@@ -64,12 +61,40 @@ class Index extends CI_Controller {
         $this->load->view('templates/scripts', $data);
         $logged_in = $this->session->userdata('logged_in');
         if ($logged_in == true) {
+            if ($remember_me_post == TRUE) {
+                $cookie = array(
+                    'name'   => 'user_id',
+                    'value'  => $this->session->userdata('user_id'),
+                    'expire' =>  365*24*60*60,
+                    'secure' => false
+                );
+                $this->input->set_cookie($cookie);
+                
+                $cookie = array(
+                    'name'   => 'logged_in',
+                    'value'  => TRUE,
+                    'expire' =>  365*24*60*60,
+                    'secure' => false
+                );
+                $this->input->set_cookie($cookie); 
+            }
             redirect ('');
         }
+        
     }
     
     public function logout() {
         $this->session->sess_destroy();
+        // unset cookies
+        if (isset($_SERVER['HTTP_COOKIE'])) {
+            $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
+            foreach($cookies as $cookie) {
+                $parts = explode('=', $cookie);
+                $name = trim($parts[0]);
+                setcookie($name, '', time()-1000);
+                setcookie($name, '', time()-1000, '/');
+            }
+        }
         redirect('index/index');
     }
     

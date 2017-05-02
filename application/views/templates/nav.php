@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </div>
-            <p>Please wait...</p>
+            <p>Cargando...</p>
         </div>
     </div>
     <!-- #END# Page Loader -->
@@ -58,8 +58,13 @@
                     <img src="<?=base_url()?>assets/images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Antonio Mudarra</div>
-                    <div class="email">admin@relife.com</div>
+                    <?php
+                    $first_name = $this->session->userdata('first_name');
+                    $last_name = $this->session->userdata('last_name');
+                    $email = $this->session->userdata('email');
+                    ?>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $first_name ?> <?= $last_name ?></div>
+                    <div class="email"><?= $email ?></div>
                 </div>
             </div>
             <!-- #User Info -->
@@ -73,21 +78,24 @@
                             <span>Inicio</span>
                         </a>
                     </li>
-                    <li>
+                    <li data-active="users">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">supervisor_account</i>
                             <span>Usuarios</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="/users">Listar usuario</a>
+                                <a href="/users">Editar usuario</a>
+                            </li>
+                            <li>
+                                <a href="/users/new">Nuevo usuario</a>
                             </li>
                             <li>
                                 <a href="/users/database">Buscar usuario</a>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li data-active="products">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">shopping_cart</i>
                             <span>Productos</span>

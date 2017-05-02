@@ -26,15 +26,42 @@
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="/assets/css/themes/all-themes.css" rel="stylesheet" />
     
-    <link href="/assets/css/my-style.css" rel="stylesheet" />
-
-    <?php
-        if (!empty($module["database_table_user"]) and $module["database_table_user"] == true) {
-        ?>
+    <?php if (!empty($module["dropzone_plugin"]) and $module["dropzone_plugin"] == true) { ?>
+        
+        <!-- Dropzone Css -->
+        <link href="/assets/plugins/dropzone/dropzone.css" rel="stylesheet">
+    
+    <?php } ?>
+    
+    <?php if (!empty($module["database_table_user"]) and $module["database_table_user"] == true) { ?>
+        
+        <!-- Bootstrap DataTables Css -->
         <link href="/assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-        <?php
-        }
-    ?>
+    
+    <?php } ?>
+    
+    <?php if (!empty($module["select_plugin"]) and $module["select_plugin"] == true) { ?>
+    
+        <!-- Bootstrap Select Css -->
+        <link href="/assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet">
+    
+    <?php } ?>
+    
+    <?php if (!empty($module["lightgallery_plugin"]) and $module["lightgallery_plugin"] == true) { ?>
+    
+        <!-- Light Gallery Plugin Css -->
+        <link href="/assets/plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
+    
+    <?php } ?>
+    
+    <?php if (!empty($module["datetimepicker_plugin"]) and $module["datetimepicker_plugin"] == true) { ?>
+    
+        <!-- Bootstrap Material Datetime Picker Css -->
+        <link href="/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    
+    <?php } ?>
+    
+    <link href="/assets/css/my-style.css" rel="stylesheet" />
 
 </head>
 <body class="<?= !empty($body_class) ? $body_class : "theme-red" ?>">

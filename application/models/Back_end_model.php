@@ -10,14 +10,29 @@ class Back_end_model extends CI_Model {
         
         if ($query->num_rows() > 0) {
             $res = $query->row_array();
+            $data = $res;
+            $data['logged_in'] = TRUE;
+            
     
-            $data = array(
-                'id' => $res['id'],
-                'email' => $res['email'],
-                'logged_in' => true,
-                'validated' => true
-            );
+            $this->session->set_userdata($data);
+            return true;
+        } else {
+            return false;
+        }
+    }
     
+    public function loginWithCookies($id) {
+        
+        $this->db->where('id', $id);
+    
+        $query = $this->db->get('users');
+        
+        if ($query->num_rows() > 0) {
+            $res = $query->row_array();
+            $data = $res;
+            $data['logged_in'] = TRUE;
+            
+            
             $this->session->set_userdata($data);
             return true;
         } else {

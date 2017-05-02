@@ -4,30 +4,77 @@
     <!-- Jquery Core Js -->
     <script src="/assets/plugins/jquery/jquery.min.js"></script>
     <script>
-    $(function(){
-      function stripTrailingSlash(str) {
-        if(str.substr(-1) == '/') {
-          return str.substr(0, str.length - 1);
+    $(function() {
+        function stripTrailingSlash(str) {
+            if (str.substr(-1) == '/') {
+                return str.substr(0, str.length - 1);
+            }
+            return str;
         }
-        return str;
-      }
-    
-      var url = window.location.pathname;  
-      var activePage = stripTrailingSlash(url);
-      
-      $('.menu li a').each(function(){  
-        var currentPage = stripTrailingSlash($(this).attr('href'));
-        if (activePage == currentPage) {
-          $(this).parent().addClass('active'); 
-        } 
-      });
+        var url = window.location.pathname;
+        var activePage = stripTrailingSlash(url);
+        var activeLi = activePage.split("/")[1];
+        
+        $(".menu .list li[data-active]").each(function() {
+          if ($(this).data("active") == activeLi) {
+            $(this).addClass('active');
+          }
+        });
+        
+        $('.menu li a').each(function() {
+            var currentPage = stripTrailingSlash($(this).attr('href'));
+            
+            if (activePage == currentPage) {
+                $(this).parent().addClass('active');
+            }
+        });
     });
     </script>  
     <!-- Bootstrap Core Js -->
     <script src="/assets/plugins/bootstrap/js/bootstrap.js"></script>
     
-    <!-- Select Plugin Js -->
-    <script src="/assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <?php if (!empty($module["select_plugin"]) and $module["select_plugin"] == true) { ?>
+      
+      <!-- Bootstrap Select Js -->
+      <script type="text/javascript" src="/assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    
+    <?php } ?>
+    
+    <?php if (!empty($module["dropzone_plugin"]) and $module["dropzone_plugin"] == true) { ?>
+      
+      <!-- Bootstrap Select Js -->
+      <script type="text/javascript" src="/assets/plugins/dropzone/dropzone.js"></script>
+      <script type="text/javascript">
+        Dropzone.options.myAwesomeDropzone = {
+          maxFiles: 1,
+          autoProcessQueue: false,
+          
+          accept: function(file, done) {
+            console.log("uploaded");
+            done();
+          },
+          init: function() {
+            this.on("maxfilesexceeded", function(file){
+            });
+            var submitButton = document.querySelector("#submit-all")
+                myDropzone = this; // closure
+        
+            submitButton.addEventListener("click", function() {
+              myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+            });
+        
+            // You might want to show the submit button only when 
+            // files are dropped here:
+            this.on("addedfile", function() {
+              // Show submit button here and/or inform user to click it.
+              alert("pepe");
+            });
+
+          }
+        };
+      </script>
+    
+    <?php } ?>
 
     <!-- Slimscroll Plugin Js -->
     <script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
@@ -79,7 +126,7 @@
                 }
             });
         });
-    </script>
+      </script>
     <?php } ?>
     
     <?php if (!empty($module["database_table_user"]) and $module["database_table_user"] == true) { ?>
@@ -141,6 +188,36 @@
     	</script>
     <?php } ?>
 
+    <?php if (!empty($module["lightgallery_plugin"]) and $module["lightgallery_plugin"] == true) { ?>
+      <!-- Light Gallery Plugin Js -->
+      <script src="/assets/plugins/light-gallery/js/lightgallery-all.js"></script>
+      <script type="text/javascript">
+        $(function () {
+          $("#user-thumbnials").lightGallery(); 
+        });
+      </script>
+    <?php } ?>
+    
+    <?php if (!empty($module["datetimepicker_plugin"]) and $module["datetimepicker_plugin"] == true) { ?>
+      <!-- Moment Plugin Js -->
+      <script src="/assets/plugins/momentjs/moment-with-locales.js"></script>
+      
+      <!-- Bootstrap Material Datetime Picker Plugin Js -->
+      <script src="/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+        <?php if (!empty($module["datetimepicker_plugin_edit_user"]) and $module["datetimepicker_plugin_edit_user"] == true) { ?>
+          <script type="text/javascript">
+            var user_datetimepicker = $('.user_datetimepicker').bootstrapMaterialDatePicker({
+              lang: 'es_ES',
+              format: 'dddd DD [de] MMMM [del] YYYY [a las] HH:mm',
+              clearButton: true,
+              weekStart: 1,
+              currentDate: new Date($('.user_datetimepicker').data('value'))
+            });
+
+          </script>
+      <?php } ?>
+    <?php } ?>
+    
     <!-- Validation Plugin Js -->
     <script src="/assets/plugins/jquery-validation/jquery.validate.js"></script>
 

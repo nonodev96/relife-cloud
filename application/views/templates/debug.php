@@ -1,44 +1,47 @@
 
 <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
-    <div class="panel-group full-body" id="accordion_13" role="tablist" aria-multiselectable="true">
-        
-        <div class="panel panel-col-pink">
-            <div class="panel-heading" role="tab" id="headingOne_13">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion_13" href="#collapseOne_13" aria-expanded="false" aria-controls="collapseOne_13" class="collapsed">
-                       Debug usuarios 
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne_13" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne_13" aria-expanded="false" style="height: 0px;">
-                <div class="panel-body">
-                    <?php
-                    $query = $this->db->get('products');
-                    $all_products = $query->result();
-                    ?>
-                    <pre><?php var_dump($all_products) ?></pre>   
+    <div class="panel-group full-body" id="accordion" role="tablist" aria-multiselectable="true">
+        <?php 
+        $debug_array = array(
+            array(
+                'title'=>'Debug cookies',
+                'key'=>'cookie',
+                'data'=> $_COOKIE
+            ),
+            array(
+                'title'=>'Debug sesión',
+                'key'=>'session',
+                'data'=> $_SESSION
+            ),
+            array(
+                'title'=>'Debug usuarios',
+                'key'=>'users',
+                'data'=> $this->db->get('users')->result()
+            ),
+            array(
+                'title'=>'Debug productos',
+                'key'=>'products',
+                'data'=> $this->db->get('products')->result()
+            ) 
+        );
+        foreach ($debug_array as $key => $value) {
+            ?>
+            <div class="panel panel-col-pink">
+                <div class="panel-heading" role="tab" id="heading_<?=$value['key']?>">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?=$value['key']?>" aria-expanded="false" aria-controls="collapse_<?=$value['key']?>" class="collapsed">
+                           <?=$value['title']?>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_<?=$value['key']?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_<?=$value['key']?>" aria-expanded="false" style="height: 0px;">
+                    <div class="panel-body">
+                        <pre><?php var_dump($value['data']) ?></pre>   
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="panel panel-col-pink">
-            <div class="panel-heading" role="tab" id="headingTwo_13">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_13" href="#collapseTwo_13" aria-expanded="false" aria-controls="collapseTwo_13">
-                        Debug productos
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo_13" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_13" aria-expanded="false">
-                <div class="panel-body">
-                    <?php
-                    $query = $this->db->get('products');
-                    $all_products = $query->result();
-                    ?>
-                    <pre><?php var_dump($all_products) ?></pre>
-                </div>
-            </div>
-        </div>
-        
+            <?php
+        }
+        ?>
     </div>
 </div>
