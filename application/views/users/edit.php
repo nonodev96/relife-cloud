@@ -132,7 +132,8 @@
                         </div>
                     </div>
                 </form>
-                <button type="submit" id="submit-all" class="btn btn-primary m-t-15 waves-effect">Actualizar imagen</button><br>
+                <button type="submit" id="submit-all" 
+                class="btn btn-primary m-t-15 waves-effect" >Actualizar imagen</button><br>
             </div>
         </div>
     </div>

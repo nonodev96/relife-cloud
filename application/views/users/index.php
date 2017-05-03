@@ -70,9 +70,8 @@
                                         <label for="checkbox_user_<?=$value->id?>"></label>
                                     </td>
                                     <td>
-                                        <?= $value->first_name ? $value->first_name . ". " : "" ?>
+                                        <?= $value->first_name ?>
                                         <?= $value->last_name ?>
-                                        
                                     </td>
                                     <td><?= $value->nickname ?></td>
                                     <td><?= $value->email ?></td>

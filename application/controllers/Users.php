@@ -67,7 +67,7 @@ class Users extends CI_Controller {
         if (!empty($input_post["submit"]) and $input_post["submit"] == "submit") { 
             unset($input_post["submit"]);
             $input_post["birth_date"] = $this->dateToMySql($this->input->post('birth_date'));
-            $input_post["password"] = md5($input_post["password"]);
+
             $this->Users_model->updateById($input_post, $input_post["id"]);
             $this->session->set_tempdata('user_update', TRUE, 30);
             $data["user_update"] = $this->session->tempdata('user_update') ? TRUE : NULL;

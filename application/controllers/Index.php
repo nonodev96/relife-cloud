@@ -54,7 +54,7 @@ class Index extends CI_Controller {
         
         $remember_me_post = $this->input->post('rememberme');
         $result = $this->Back_end_model->login($email, $password);
-
+        
         $data["body_class"] ="login-page";
         $this->load->view('templates/header', $data);
         $this->load->view('auth/login', $data);

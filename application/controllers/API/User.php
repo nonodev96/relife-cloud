@@ -94,10 +94,11 @@ class User extends CI_Controller {
             $all_correct["email_count"] = false;
         }
         $all_correct["password"] = preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $data["password"]) ? true : false;
+        $all_correct["password"] = true;
 
         if (!in_array(false, $all_correct)) {
             $data["join_date"] = date("Y-m-d H:i:s");
-            $data["password"] = md5($data["password"]);
+
             $insert_id = $this->Users_model->insert($data);
             if (!empty($insert_id)) {
                 $this->status["data"]["id"] = $insert_id;
@@ -105,13 +106,13 @@ class User extends CI_Controller {
             }
         } else {
             if ($all_correct["nickname"] == false) {
-                $this->status["meta"]["nickname"] = "Nickname is invalid";
+                $this->status["meta"]["nickname"] = "Nickname erroneo";
             }
             if ($all_correct["email"] == false) {
-                $this->status["meta"]["email"] = "Invalid email: '" . $data["email"] . "'";
+                $this->status["meta"]["email"] = "Email incorrecto: '" . $data["email"] . "'";
             }
             if ($all_correct["password"] == false) {
-                $this->status["meta"]["password"] = "Password is invalid";
+                $this->status["meta"]["password"] = "La contraseña no es válida";
             }
             $http_status = 400;
         }
@@ -124,6 +125,7 @@ class User extends CI_Controller {
         $http_status = 200;
 
         if ($user_exist) {
+            $all_correct = ["nickname"=>false,"email"=>false,"email_count"=>false,"password"=>false];
             $all_correct["nickname"] = preg_match('/[a-zA-Z]\w{4,14}/', $data["nickname"]) ? true : false;
             $all_correct["email"] = filter_var($data["email"], FILTER_VALIDATE_EMAIL) ? true : false;
             if ($all_correct["email"]) {
@@ -131,11 +133,14 @@ class User extends CI_Controller {
             } else {
                 $all_correct["email_count"] = false;
             }
-            $all_correct["password"] = preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $data["password"]) ? true : false;
-
+            $all_correct["password"] = true;
+            if (!empty($data['password']) and $data['password'] != '') {
+                $all_correct["password"] = preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $data["password"]) ? true : false;
+            }
+            var_dump($all_correct);
+            exit;
+            
             if (!in_array(false, $all_correct)) {
-                // $data["password"] = password_hash($data["password"], PASSWORD_BCRYPT, ["cost" => 12]);
-                $data["password"] = md5($data["password"]);
 
                 if (!empty($data["profile_avatar"])) {
                     $profile_avatar = $data["profile_avatar"];
@@ -150,21 +155,21 @@ class User extends CI_Controller {
                         $data["profile_avatar"] = "user_" . $id . "." . $image_base_64["type"];
                         file_put_contents(getcwd() . '/assets/images/users/' . $data["profile_avatar"], $base64_decode);
                     } else {
-                        $data["profile_avatar"] = "stop";
+                        $data["profile_avatar"] = "imagen error";
                     }
                 }
-
+                
                 $update_by_id = $this->Users_model->updateById($data, $id);
                 $this->status["data"] = $update_by_id;
             } else {
                 if ($all_correct["nickname"] == false) {
-                    $this->status["meta"]["nickname"] = "Nickname is invalid";
+                    $this->status["meta"]["nickname"] = "Nickname erroneo";
                 }
                 if ($all_correct["email"] == false) {
-                    $this->status["meta"]["email"] = "Invalid email: '" . $data["email"] . "'";
+                    $this->status["meta"]["email"] = "Email incorrecto: '" . $data["email"] . "'";
                 }
                 if ($all_correct["password"] == false) {
-                    $this->status["meta"]["password"] = "Password is invalid";
+                    $this->status["meta"]["password"] = "La contraseña no es válida";
                 }
                 $http_status = 400;
             }

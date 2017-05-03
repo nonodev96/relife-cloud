@@ -69,10 +69,8 @@
                                         <input type="checkbox" name="checkbox_products[]" value="<?= $value->id ?>" id="checkbox_product_<?= $value->id ?>" class="chk-col-light-green" >
                                         <label for="checkbox_product_<?=$value->id?>"></label>
                                     </td>
-                                    <td>
-                                        <?= $value->title ?>
-                                    </td>
-                                    <td><?= $value->description ?></td>
+                                    <td><?= $value->title ?></td>
+                                    <td style="width:270px"><?= $value->description ?></td>
                                     <td class="date_time"><?= $value->datetime_product ?></td>
                                     <td>
                                         <a href="javascript:void(0);"><button type="submit" name="deleteByID" value="<?= $value->id ?>" class="my-button"><i class="material-icons">delete</i></button></a>

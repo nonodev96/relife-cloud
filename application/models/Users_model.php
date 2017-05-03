@@ -26,11 +26,14 @@ class Users_model extends CI_Model {
     }
     
     public function updateById($data, $id) {
+        var_dump($data);
+exit;
         $this->db->where('id', $id);
-        if (!empty($data['password']) and $data['password'] == '') {
-            unset($data['password']);
-        }else{
+        $valid = preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $data["password"]) ? true : false;
+        if (!empty($data['password']) and $data['password'] != '' and true == $valid) {
             $data["password"] = md5($data["password"]); 
+        } else {
+            unset($data['password']);
         }
         $this->db->update('users', $data);
         return $this->getUserByID($id);
