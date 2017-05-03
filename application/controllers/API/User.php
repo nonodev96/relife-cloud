@@ -8,6 +8,8 @@ class User extends CI_Controller {
         "meta" => array(),
         "data" => array()
     );
+    public $passwordPattern = "/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/";
+    public $userPattern = '/[a-zA-Z]\w{4,14}/';
     //endregion
 
     //region CONSTRUCT
@@ -26,7 +28,7 @@ class User extends CI_Controller {
     //endregion
 
     //region CONTROLLER
-    private function get_json_error($json_last_error) {
+    private function getJSONError($json_last_error) {
         $JSON_ERROR = null;
         switch ($json_last_error) {
             case JSON_ERROR_NONE:
@@ -53,18 +55,30 @@ class User extends CI_Controller {
         }
         return $JSON_ERROR;
     }
-    private function get_json() {
+    private function getJSON() {
         $data_receive = file_get_contents('php://input');
         $json_decode = json_decode($data_receive);
         $json_last_error = json_last_error();
         if ($json_last_error > 0) {
-            $JSON_ERROR = $this->get_json_error($json_last_error);
+            $JSON_ERROR = $this->getJSONError($json_last_error);
             $this->status["meta"]["json"] = $JSON_ERROR;
             $this->show($this->status, 400);
             exit;
         }
 
         return json_decode(json_encode($json_decode), TRUE);
+    }
+    private function checkData($all_correct){
+        if ($all_correct["nickname"] == false) {
+            $this->status["meta"]["nickname"] = "Nickname erroneo";
+        }
+        if ($all_correct["email"] == false) {
+            $this->status["meta"]["email"] = "Email incorrecto";
+        }
+        if ($all_correct["password"] == false) {
+            $this->status["meta"]["password"] = "La contraseña no es válida";
+        }
+        return 400;
     }
     //endregion
 
@@ -84,16 +98,16 @@ class User extends CI_Controller {
     }
 
     public function insert() {
-        $data = $this->get_json();
+        $data = $this->getJSON();
         $http_status = 400;
-        $all_correct["nickname"] = preg_match('/[a-zA-Z]\w{4,14}/', $data["nickname"]) ? true : false;
+        $all_correct["nickname"] = preg_match($this->userPattern, $data["nickname"]) ? true : false;
         $all_correct["email"] = filter_var($data["email"], FILTER_VALIDATE_EMAIL) ? true : false;
         if ($all_correct["email"]) {
             $all_correct["email_count"] = $this->Users_model->countEmail($data["email"]) <= 0 ? true : false;
         } else {
             $all_correct["email_count"] = false;
         }
-        $all_correct["password"] = preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $data["password"]) ? true : false;
+        $all_correct["password"] = preg_match($this->passwordPattern, $data["password"]) ? true : false;
         $all_correct["password"] = true;
 
         if (!in_array(false, $all_correct)) {
@@ -105,41 +119,30 @@ class User extends CI_Controller {
                 $http_status = 201;
             }
         } else {
-            if ($all_correct["nickname"] == false) {
-                $this->status["meta"]["nickname"] = "Nickname erroneo";
-            }
-            if ($all_correct["email"] == false) {
-                $this->status["meta"]["email"] = "Email incorrecto: '" . $data["email"] . "'";
-            }
-            if ($all_correct["password"] == false) {
-                $this->status["meta"]["password"] = "La contraseña no es válida";
-            }
-            $http_status = 400;
+            $this->checkData($all_correct);
         }
         $this->show($this->status, $http_status);
     }
 
     public function update($id) {
-        $data = $this->get_json();
+        $data = $this->getJSON();
         $user_exist = $this->Users_model->userExist($id);
         $http_status = 200;
 
         if ($user_exist) {
             $all_correct = ["nickname"=>false,"email"=>false,"email_count"=>false,"password"=>false];
-            $all_correct["nickname"] = preg_match('/[a-zA-Z]\w{4,14}/', $data["nickname"]) ? true : false;
+            $all_correct["nickname"] = preg_match($this->userPattern, $data["nickname"]) ? true : false;
             $all_correct["email"] = filter_var($data["email"], FILTER_VALIDATE_EMAIL) ? true : false;
             if ($all_correct["email"]) {
                 $all_correct["email_count"] = $this->Users_model->countEmail($data["email"]) <= 1 ? true : false;
-            } else {
-                $all_correct["email_count"] = false;
             }
             $all_correct["password"] = true;
             if (!empty($data['password']) and $data['password'] != '') {
-                $all_correct["password"] = preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $data["password"]) ? true : false;
+                $all_correct["password"] = preg_match($this->passwordPattern, $data["password"]) ? true : false;
+            } else {
+                unset($data["password"]);
             }
-            var_dump($all_correct);
-            exit;
-            
+
             if (!in_array(false, $all_correct)) {
 
                 if (!empty($data["profile_avatar"])) {
@@ -158,20 +161,11 @@ class User extends CI_Controller {
                         $data["profile_avatar"] = "imagen error";
                     }
                 }
-                
+
                 $update_by_id = $this->Users_model->updateById($data, $id);
                 $this->status["data"] = $update_by_id;
             } else {
-                if ($all_correct["nickname"] == false) {
-                    $this->status["meta"]["nickname"] = "Nickname erroneo";
-                }
-                if ($all_correct["email"] == false) {
-                    $this->status["meta"]["email"] = "Email incorrecto: '" . $data["email"] . "'";
-                }
-                if ($all_correct["password"] == false) {
-                    $this->status["meta"]["password"] = "La contraseña no es válida";
-                }
-                $http_status = 400;
+                $http_status = $this->checkData($all_correct);
             }
         } else {
             $this->status["meta"]["error"] = "No update";
@@ -194,8 +188,8 @@ class User extends CI_Controller {
         }
         $this->show($this->status, $status);
     }
-    
-    public function dashboard($id = 0) {
+
+    public function dashboard() {
         $status = 200;
         $this->status["data"] = $this->Users_model->dashboard();
         $this->show($this->status, $status);
@@ -208,7 +202,7 @@ class User extends CI_Controller {
 
     //region Authentication
     public function login() {
-        $data = $this->get_json();
+        $data = $this->getJSON();
         $http_status = 200;
         $this->status["data"]["status"] = "failed";
         if (!empty($data["email"]) and !empty($data["password"])) {
