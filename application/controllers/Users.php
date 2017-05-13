@@ -12,7 +12,7 @@ class Users extends CI_Controller {
         )
     );
 
-    public function __construct() {
+    function __construct() {
         parent::__construct();
         $this->load->model('Users_model');
     }
@@ -66,7 +66,8 @@ class Users extends CI_Controller {
 
         if (!empty($input_post["submit"]) and $input_post["submit"] == "submit") { 
             unset($input_post["submit"]);
-            $input_post["birth_date"] = $this->dateToMySql($this->input->post('birth_date'));
+            $this->load->helper("dates_helper");
+            $input_post["birth_date"] = dateToMySql($this->input->post('birth_date'));
 
             $this->Users_model->updateById($input_post, $input_post["id"]);
             $this->session->set_tempdata('user_update', TRUE, 30);
@@ -129,59 +130,10 @@ class Users extends CI_Controller {
         $data["all_users"] = $this->Users_model->getAllUsers();
         $data["templates"]["users"]['title'] = "Usuarios";
         $data["templates"]["users"]['content'] = $this->load->view('users/database_table_users', $data, true);
-        $data["module"]["database_table_user"] = true;
+        $data["module"]["database_table"] = true;
         $this->load->view('templates/header', $data);
         $this->load->view('templates/nav', $data);
         $this->load->view('templates/content', $data);
         $this->load->view('templates/scripts', $data);
-    }
-    
-    private function dateToMySql($date_spanish) {
-        $return_string = "";
-        $explode_date_spanish = explode(" ", $date_spanish);
-        $year_number = $explode_date_spanish[5];
-        $name_month = $explode_date_spanish[3];
-        $day_number = $explode_date_spanish[1];
-        $hour_minute_number = $explode_date_spanish[8];
-        switch ($name_month) {
-            case "Enero":
-                $month_number = "01";
-                break;
-            case "Febrero":
-                $month_number = "02";
-                break;
-            case "Marzo":
-                $month_number = "03";
-                break;
-            case "Abril":
-                $month_number = "04";
-                break;
-            case "Mayo":
-                $month_number = "05";
-                break;
-            case "Junio":
-                $month_number = "06";
-                break;
-            case "Julio":
-                $month_number = "07";
-                break;
-            case "Agosto":
-                $month_number = "08";
-                break;
-            case "Septiembre":
-                $month_number = "09";
-                break;
-            case "Octubre":
-                $month_number = "10";
-                break;
-            case "Noviembre":
-                $month_number = "11";
-                break;
-            case "Diciembre":
-                $month_number = "12";
-                break;
-        }
-        $return_string = $year_number . "-" . $month_number . "-" . $day_number . " " . $hour_minute_number . ":00"; 
-        return $return_string;
     }
 }

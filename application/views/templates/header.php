@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="initial-scale=1">    
     <title>ReLife</title>
     <!-- Favicon-->
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
@@ -33,7 +33,7 @@
     
     <?php } ?>
     
-    <?php if (!empty($module["database_table_user"]) and $module["database_table_user"] == true) { ?>
+    <?php if (!empty($module["database_table"]) and $module["database_table"] == true) { ?>
         
         <!-- Bootstrap DataTables Css -->
         <link href="/assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
@@ -61,7 +61,15 @@
     
     <?php } ?>
     
+    <?php if (!empty($module["editor_md"]) and $module["editor_md"] == true) { ?>
+    
+        <!-- Editor md Css -->
+        <link rel="stylesheet" href="/assets/plugins/editor.md/css/editormd.css" />
+    
+    <?php } ?>
+    
     <link href="/assets/css/my-style.css" rel="stylesheet" />
+    
 
 </head>
 <body class="<?= !empty($body_class) ? $body_class : "theme-red" ?>">

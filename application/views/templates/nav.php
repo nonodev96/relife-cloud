@@ -50,12 +50,13 @@
     </nav>
     <!-- #Top Bar -->
     <section>
+        <h2 class="hidden">Re-Life</h2>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="<?=base_url()?>assets/images/user.png" width="48" height="48" alt="User" />
+                    <img src="/assets/images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <?php
@@ -63,7 +64,7 @@
                     $last_name = $this->session->userdata('last_name');
                     $email = $this->session->userdata('email');
                     ?>
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $first_name ?> <?= $last_name ?></div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button"><h4><?= $first_name ?> <?= $last_name ?></h4></div>
                     <div class="email"><?= $email ?></div>
                 </div>
             </div>
@@ -102,7 +103,10 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="/products">Listar productos</a>
+                                <a href="/products">Editar productos</a>
+                            </li>
+                            <li>
+                                <a href="/products/new">Nuevo producto</a>
                             </li>
                             <li>
                                 <a href="/products/database">Buscar productos</a>
@@ -284,3 +288,4 @@
         </aside>
         <!-- #END# Right Sidebar -->
     </section>
+<?= $this->load->view("modals/konami_code", array(), TRUE) ?>

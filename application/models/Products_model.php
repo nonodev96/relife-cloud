@@ -20,9 +20,10 @@ class Products_model extends CI_Model {
     }
     
     public function insert($data) {
+        $data["datetime_product"] = date('Y-m-d H:i:s');
         $this->db->insert('products', $data);
         $insert_id = $this->db->insert_id();
-        return  $insert_id;
+        return $insert_id;
     }
     
     public function updateById($data, $id) {

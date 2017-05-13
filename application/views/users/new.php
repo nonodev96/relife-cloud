@@ -18,7 +18,7 @@
     ?>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
-            <div class="header bg-red">
+            <div class="header bg-light-blue">
                 <h2>Nuevo usuario</h2>
             </div>
             <div class="body">
@@ -53,7 +53,6 @@
                                 </select>
                             </div>
 
-                            <input type="hidden" name="join_date" value="<?= date('Y-m-d H:i:s') ?>">
                             <input type="hidden" name="submit" value="submit">
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Crear usuario</button><br>
                         </div>

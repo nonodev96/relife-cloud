@@ -67,6 +67,7 @@
                             </div>
                             <div class="form-group form-float">
                                 <div class="form-line">
+                                    <label class="form-label">Cumpleaños</label>
                                     <input type="text" class="user_datetimepicker form-control" name="birth_date" 
                                            data-value="<?= $get_user->birth_date ?>" placeholder="Cumpleaños">
                                 </div>
@@ -74,7 +75,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line">
                                     <input type="text" class="form-control" name="location" value="<?= $get_user->location ?>">
-                                    <label class="form-label">Localidad</label>
+                                    <label class="form-label">Ubicación</label>
                                 </div>
                             </div>
                             <div class="form-group form-float">

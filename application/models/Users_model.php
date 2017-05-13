@@ -20,17 +20,16 @@ class Users_model extends CI_Model {
     }
     
     public function insert($data) {
+        $data["password"] = md5($data["password"]); 
+        $data["join_date"] = date('Y-m-d H:i:s'); 
         $this->db->insert('users', $data);
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
     
     public function updateById($data, $id) {
-        var_dump($data);
-exit;
         $this->db->where('id', $id);
-        $valid = preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $data["password"]) ? true : false;
-        if (!empty($data['password']) and $data['password'] != '' and true == $valid) {
+        if (!empty($data['password']) and $data['password'] != '' and true == preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $data["password"])) {
             $data["password"] = md5($data["password"]); 
         } else {
             unset($data['password']);

@@ -23,7 +23,7 @@
         <div class="card">
             <form action="/products/deleteProducts" method="POST" >
                 
-                <div class="header">
+                <div class="header bg-cyan">
                     <h2>
                         Editar productos
                     </h2>
@@ -34,13 +34,12 @@
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 <li>
-                                    <a href="/products/new">
-                                        <i class="material-icons">shopping_cart</i>Nuevo </a>
-                                    </li>
+                                    <a href="/products/new">Nuevo </a>
+                                </li>
                                 <li>
                                     <a href="javascript:void(0);">
                                         <button type="submit" name="deleteByIds" value="delete" class="my-button">
-                                            <i class="material-icons">delete</i>Eliminar productos 
+                                            Eliminar productos 
                                         </button>
                                     </a>
                                 </li>
@@ -64,17 +63,19 @@
                             foreach ($get_all_products as $key => $value) {
                                 ?>
                                 <tr>
-                                    <td>
+                                    <td class="col-md-1">
                                         <input type="hidden" name="id[]" value="<?= $value->id ?>"/>
                                         <input type="checkbox" name="checkbox_products[]" value="<?= $value->id ?>" id="checkbox_product_<?= $value->id ?>" class="chk-col-light-green" >
                                         <label for="checkbox_product_<?=$value->id?>"></label>
                                     </td>
-                                    <td><?= $value->title ?></td>
-                                    <td style="width:270px"><?= $value->description ?></td>
-                                    <td class="date_time"><?= $value->datetime_product ?></td>
-                                    <td>
-                                        <a href="javascript:void(0);"><button type="submit" name="deleteByID" value="<?= $value->id ?>" class="my-button"><i class="material-icons">delete</i></button></a>
-                                        <a href="/products/<?=$value->id?>" class="bd-pink"><i class="material-icons">mode_edit</i></a>
+                                    <td class="col-md-1"><?= $value->title ?></td>
+                                    <td class="col-md-5"><?= $value->description ?></td>
+                                    <td class="col-md-3 date_time"><?= $value->datetime_product ?></td>
+                                    <td class="col-md-2 button-demo">
+                                        <a href="javascript:void(0);">
+                                            <button type="submit" name="deleteByID" value="<?= $value->id ?>" class="btn bg-red waves-effect">ELIMINAR</button>
+                                        </a><br>
+                                        <a href="/products/<?=$value->id?>" class="btn bg-purple waves-effect">EDITAR</a>
                                     </td>
                                 </tr>
                                 <?php

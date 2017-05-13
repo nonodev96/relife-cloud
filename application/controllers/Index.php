@@ -15,6 +15,7 @@ class Index extends CI_Controller {
         $this->load->model('Products_model');
         $this->load->helper('date');
         $this->load->helper('language');
+        $this->load->helper('cookie');
     }
 
     public function index() {
@@ -29,8 +30,10 @@ class Index extends CI_Controller {
         $data["dashboard"]["dashboard_products"] = $this->Products_model->dashboard();
         $data["dashboard"]["dashboard_products_chart_js"] = $this->dashboardChartjs($data["dashboard"]["dashboard_products"]);
         //endregion
-        $data["templates"]["dashboard"]["title"] = "Dashboard";
-        $data["templates"]["dashboard"]["content"] = $this->load->view('dashboard/index', $data, true);
+        $data["templates"]["dashboard_products"]["title"] = "";
+        $data["templates"]["dashboard_products"]["content"] = $this->load->view('dashboard/products', $data, true);
+        $data["templates"]["dashboard_users"]["title"] = "";
+        $data["templates"]["dashboard_users"]["content"] = $this->load->view('dashboard/users', $data, true);
         $data["body_class"] = "theme-red";
         $data["module"]["chartjs_dashboard"] = true;
         $this->load->view('templates/header', $data);
@@ -61,22 +64,21 @@ class Index extends CI_Controller {
         $this->load->view('templates/scripts', $data);
         $logged_in = $this->session->userdata('logged_in');
         if ($logged_in == true) {
-            if ($remember_me_post == TRUE) {
+            if ($remember_me_post == true) {
                 $cookie = array(
                     'name'   => 'user_id',
-                    'value'  => $this->session->userdata('user_id'),
+                    'value'  => $this->session->userdata('id'),
                     'expire' =>  365*24*60*60,
                     'secure' => false
                 );
-                $this->input->set_cookie($cookie);
-                
+                set_cookie($cookie);
                 $cookie = array(
                     'name'   => 'logged_in',
                     'value'  => TRUE,
                     'expire' =>  365*24*60*60,
                     'secure' => false
                 );
-                $this->input->set_cookie($cookie); 
+                set_cookie($cookie); 
             }
             redirect ('');
         }
@@ -87,12 +89,11 @@ class Index extends CI_Controller {
         $this->session->sess_destroy();
         // unset cookies
         if (isset($_SERVER['HTTP_COOKIE'])) {
-            $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
-            foreach($cookies as $cookie) {
-                $parts = explode('=', $cookie);
-                $name = trim($parts[0]);
-                setcookie($name, '', time()-1000);
-                setcookie($name, '', time()-1000, '/');
+            foreach ($_COOKIE as $key => $value) {
+                if (isset($_COOKIE[$key])) {
+                    unset($_COOKIE[$key]);
+                    setcookie($key, null, -1, '/');
+                }
             }
         }
         redirect('index/index');

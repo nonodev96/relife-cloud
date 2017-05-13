@@ -55,20 +55,20 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 //region User
-$route['api/user']["get"] = 'API/User/malformed';
-$route['api/user/(:num)']["get"] = 'API/User/get/$1';
+$route['api/user']["get"] = 'api/User/malformed';
+$route['api/user/(:num)']["get"] = 'api/User/get/$1';
 
-$route['api/user']["post"] = 'API/User/insert';
+$route['api/user']["post"] = 'api/User/insert';
 
-$route['api/user']["put"] = 'API/User/malformed';
-$route['api/user/(:num)']["put"] = 'API/User/update/$1';
+$route['api/user']["put"] = 'api/User/malformed';
+$route['api/user/(:num)']["put"] = 'api/User/update/$1';
 
-$route['api/user']["delete"] = 'API/User/malformed';
-$route['api/user/(:num)']["delete"] = 'API/User/delete/$1';
+$route['api/user']["delete"] = 'api/User/malformed';
+$route['api/user/(:num)']["delete"] = 'api/User/delete/$1';
 
-$route['api/user/login']["post"] = 'API/User/login';
-$route['api/user/search']["post"] = 'API/User/search';
-$route['api/user/dashboard']["get"] = 'API/User/dashboard';
+$route['api/user/login']["post"] = 'api/User/login';
+$route['api/user/search']["post"] = 'api/User/search';
+$route['api/user/dashboard']["get"] = 'api/User/dashboard';
 
 $route['users/(:num)'] = 'Users/edit/$1';
 $route['users/new'] = 'Users/new_user';
@@ -77,18 +77,22 @@ $route['users/uploadImage/(:num)']['post'] = 'Users/uploadImage/$1';
 //endregion
 
 //region Product
-$route['api/product']["get"] = 'API/Product/malformed';
-$route['api/product/(:num)']["get"] = 'API/Product/get/$1';
+$route['api/product']["get"] = 'api/Product/malformed';
+$route['api/product/(:num)']["get"] = 'api/Product/get/$1';
 
-$route['api/product']["post"] = 'API/Product/insert';
+$route['api/product']["post"] = 'api/Product/insert';
 
-$route['api/product']["put"] = 'API/Product/malformed';
-$route['api/product/(:num)']["put"] = 'API/Product/update/$1';
+$route['api/product']["put"] = 'api/Product/malformed';
+$route['api/product/(:num)']["put"] = 'api/Product/update/$1';
 
-$route['api/product']["delete"] = 'API/Product/malformed';
-$route['api/product/(:num)']["delete"] = 'API/Product/delete/$1';
+$route['api/product']["delete"] = 'api/Product/malformed';
+$route['api/product/(:num)']["delete"] = 'api/Product/delete/$1';
 
-$route['api/product/getProductsOfToday']["get"] = 'API/Product/getProductsOfToday';
-$route['api/product/dashboard']["get"] = 'API/Product/dashboard';
+$route['api/product/getProductsOfToday']["get"] = 'api/Product/getProductsOfToday';
+$route['api/product/dashboard']["get"] = 'api/Product/dashboard';
 
+$route['products/(:num)'] = 'Products/edit/$1';
+$route['products/new'] = 'Products/new_product';
+$route['products/deleteProducts']['post'] = 'Products/deleteProducts';
+$route['products/uploadImage/(:num)']['post'] = 'Products/uploadImage/$1';
 //endregion

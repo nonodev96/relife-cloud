@@ -29,3 +29,11 @@ html{
     padding: 0;
     margin: 0;
 }
+
+.info-container > .name > h4 {
+    margin: 0;
+}
+
+.sidebar .user-info .info-container .name {
+    max-width: 240px;
+}

@@ -75,10 +75,24 @@
                 });
         }
     </script>
+    
     <!-- Bootstrap Core Js -->
     <script src="/assets/plugins/bootstrap/js/bootstrap.js"></script>
     
-    
+    <!-- Moment JS -->
+    <script src="/assets/plugins/momentjs/moment-with-locales.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            
+            moment.locale('es-ES')
+            $('.date_time').each(function() {
+                var date_value = $(this).text();
+                var text = moment(date_value).format('LLLL');
+                $(this).text(text);
+            });
+        });
+    </script>
+
     <!-- Bootstrap Notify Plugin Js -->
     <script src="/assets/plugins/bootstrap-notify/bootstrap-notify.js"></script>
 
@@ -105,7 +119,7 @@
             init: function() {
                 this.on("complete", function (file) {
                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-                        showNotification("bg-green", "Imagen usuario actualizada", "bottom", "center")
+                        showNotification("bg-green", "Imagen actualizada", "bottom", "center")
                     }
                 });
                 this.on("maxfilesexceeded", function(file) {
@@ -183,9 +197,8 @@
     </script>
     <?php } ?>
     
-    <?php if (!empty($module["database_table_user"]) and $module["database_table_user"] == true) { ?>
+    <?php if (!empty($module["database_table"]) and $module["database_table"] == true) { ?>
     <!-- Jquery DataTable Plugin Js -->
-    <script src="/assets/plugins/momentjs/moment-with-locales.js"></script>
     <script src="/assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="/assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
     <script src="/assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
@@ -197,15 +210,8 @@
     <script src="/assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
     <script type="text/javascript">
         $(function() {
-            moment.locale('es-ES')
-            $('.date_time').each(function() {
-                var date_value = $(this).text();
-                var text = moment(date_value).format('LLLL');
-                $(this).text(text);
-            });
-    
-            //Exportable table
-            $('.datatable_users').DataTable({
+            
+            $('.datatable_relife_users').DataTable({
                 language: {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ usuarios",
@@ -214,6 +220,39 @@
                     "sInfo": "Mostrando usuarios del _START_ al _END_ de un total de _TOTAL_ usuarios",
                     "sInfoEmpty": "Mostrando usuarios del 0 al 0 de un total de 0 usuarios",
                     "sInfoFiltered": "(filtrado de un total de _MAX_ usuarios)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                select: true,
+                dom: 'Bfrtip',
+                responsive: true,
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+            
+            $('.datatable_relife_products').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ productos",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando productos del _START_ al _END_ de un total de _TOTAL_ productos",
+                    "sInfoEmpty": "Mostrando productos del 0 al 0 de un total de 0 productos",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ productos)",
                     "sInfoPostFix": "",
                     "sSearch": "Buscar:",
                     "sUrl": "",
@@ -253,22 +292,22 @@
     <?php } ?>
     
     <?php if (!empty($module["datetimepicker_plugin"]) and $module["datetimepicker_plugin"] == true) { ?>
-    <!-- Moment Plugin Js -->
-    <script src="/assets/plugins/momentjs/moment-with-locales.js"></script>
-    
-    <!-- Bootstrap Material Datetime Picker Plugin Js -->
-    <script src="/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-    <?php if (!empty($module["datetimepicker_plugin_edit_user"]) and $module["datetimepicker_plugin_edit_user"] == true) { ?>
-    <script type="text/javascript">
-        var user_datetimepicker = $('.user_datetimepicker').bootstrapMaterialDatePicker({
-            lang: 'es_ES',
-            format: 'dddd DD [de] MMMM [del] YYYY [a las] HH:mm',
-            clearButton: true,
-            weekStart: 1,
-            currentDate: new Date($('.user_datetimepicker').data('value'))
-        });
-    </script>
-    <?php } ?>
+        <!-- Moment Plugin Js -->
+        <script src="/assets/plugins/momentjs/moment-with-locales.js"></script>
+        
+        <!-- Bootstrap Material Datetime Picker Plugin Js -->
+        <script src="/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+        <?php if (!empty($module["datetimepicker_plugin_edit_user"]) and $module["datetimepicker_plugin_edit_user"] == true) { ?>
+        <script type="text/javascript">
+            var user_datetimepicker = $('.user_datetimepicker').bootstrapMaterialDatePicker({
+                lang: 'es_ES',
+                format: 'dddd DD [de] MMMM [del] YYYY [a las] HH:mm',
+                clearButton: true,
+                weekStart: 1,
+                currentDate: new Date($('.user_datetimepicker').data('value'))
+            });
+        </script>
+        <?php } ?>
     <?php } ?>
     
     <!-- Validation Plugin Js -->
@@ -288,9 +327,32 @@
     <script type="text/javascript">
         $(window).konami({
             cheat: function() {
-                alert('Cheat code activated!');
+                $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-cyan');
+                $('#mdModal').modal('show');
             }
         });
     </script>
+    
+    <?php if (!empty($module["editor_md"]) and $module["editor_md"] == true) { ?>
+        <script src="/assets/plugins/editor.md/editormd.min.js"></script>
+        <script src="/assets/plugins/editor.md/languages/es.js"></script>
+        <script type="text/javascript">
+    		var testEditor;
+    
+            $(function() {
+                testEditor = editormd("test-editormd", {
+                    width   : "100%",
+                    height  : 640,
+                    syncScrolling : "single",
+                    path    : "../assets/plugins/editor.md/lib/",
+                    emoji : true,
+                    theme : "dark",
+                    previewTheme : "dark",
+                    editorTheme : "pastel-on-dark"
+                });
+            });
+    </script>
+        
+    <?php } ?>
 </body>
 </html>
