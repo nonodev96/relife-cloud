@@ -33,7 +33,6 @@ class Authenticate {
                     // var_dump($_COOKIE);
                     // var_dump($_SESSION);
                     $this->loginWithCookieHook($cookie_user_id);
-                    redirect('index');
                 } elseif ($cookie_logged_in == TRUE and $logged_in == TRUE) {
                     // echo $this->CI->session->flashdata('uri_string');
                     // exit;

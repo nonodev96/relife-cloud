@@ -55,7 +55,7 @@
                             </div>
                             <div class="form-group form-float">
                                 <div class="form-line">
-                                    <input type="number" class="form-control" name="starting_price" value="<?= $get_product->starting_price ?>" >
+                                    <input type="number" class="form-control" name="starting_price" value="<?= $get_product->starting_price ?>" required min="0" step="0.01" >
                                     <label class="form-label">Precio de lanzamiento </label>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                         <?php
                                         foreach ($get_all_users as $key => $user) {
                                             ?>
-                                            <option value="<?= $user->id ?>"><?= $user->id ?>:  <?= $user->nickname ?> <?= !empty($user->first_name) ? "(" . $user->first_name . " " . $user->last_name . ")" : "" ?></option>
+                                            <option value="<?= $user->id ?>" <?= ($get_product->id_user == $user->id ) ? "selected" : "" ?> ><?= $user->id ?>:  <?= $user->nickname ?> <?= !empty($user->first_name) ? "(" . $user->first_name . " " . $user->last_name . ")" : "" ?></option>
                                             <?php
                                         }
                                         ?>

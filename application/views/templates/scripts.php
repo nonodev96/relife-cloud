@@ -327,8 +327,8 @@
     <script type="text/javascript">
         $(window).konami({
             cheat: function() {
-                $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-cyan');
-                $('#mdModal').modal('show');
+                $('#konamiCodeID .modal-content').removeAttr('class').addClass('modal-content modal-col-cyan');
+                $('#konamiCodeID').modal('show');
             }
         });
     </script>

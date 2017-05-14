@@ -51,7 +51,7 @@ class Products_model extends CI_Model {
         $this->db->from('products as p');
         $this->db->join('users as u', 'p.id_user = u.id');
         $this->db->where('p.datetime_product >= now() - INTERVAL 24 HOUR');
-        $this->db->order_by("p.datetime_product", "ASC");
+        $this->db->order_by("p.datetime_product", "DESC");
         $query = $this->db->get();
 
         return $query->result();
