@@ -7,7 +7,8 @@
                 <h4 class="modal-title" id="defaultModalLabel">Konami code</h4>
             </div>
             <div class="modal-body">
-                <img src="https://i0.wp.com/www.unocero.com/wp-content/uploads/2014/04/10-paginas-donde-el-Konami-Code-te-dara-una-sorpresa.jpg?fit=839%2C479&ssl=1"></img>
+                <img src="https://i0.wp.com/www.unocero.com/wp-content/uploads/2014/04/10-paginas-donde-el-Konami-Code-te-dara-una-sorpresa.jpg?fit=839%2C479&ssl=1"
+                     alt="konamiCode">
             </div>
             <div class="modal-footer">
                 <h4 class="modal-title">Antonio Mudarra Machuca</h4>

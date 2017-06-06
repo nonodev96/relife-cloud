@@ -25,7 +25,7 @@
                 
                 <div class="header bg-cyan">
                     <h2>
-                        Editar productos
+                        <?= !empty($templates["products"]["keyword"]) ? "<strong>" . $templates["products"]["keyword"] . "</strong>" : "Editar productos" ?>
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">

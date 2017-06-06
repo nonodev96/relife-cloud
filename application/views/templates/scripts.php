@@ -126,16 +126,15 @@
                     
                 });
                 var submitButton = document.querySelector("#submit-all")
-                myDropzone = this; // closure
+                myDropzone = this;
     
                 submitButton.addEventListener("click", function() {
-                    myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+                    myDropzone.processQueue(); 
                 });
     
-                // You might want to show the submit button only when 
-                // files are dropped here:
+                
                 this.on("addedfile", function() {
-                    // Show submit button here and/or inform user to click it.
+
                });
     
             }
@@ -149,6 +148,15 @@
     
     <!-- Waves Effect Plugin Js -->
     <script src="/assets/plugins/node-waves/waves.js"></script>
+    
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="/assets/plugins/jquery-countto/jquery.countTo.js"></script>
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="/assets/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/assets/js/pages/widgets/infobox/infobox-1.js"></script>
     
     <?php if (!empty($module["chartjs_dashboard"]) and $module["chartjs_dashboard"] == true) { ?>
     <!-- Chart Plugins Js -->

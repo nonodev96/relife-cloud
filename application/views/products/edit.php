@@ -9,22 +9,8 @@
                     <i class="material-icons">check</i>
                 </div>
                 <div class="content">
-                    <div class="text">Producto <?= $get_product->title ?></div>
+                    <div class="text"><?= $get_product->title ?></div>
                     <div class="number">Actualizado</div>
-                </div>
-            </div>
-        </div>
-        <?php
-    } elseif(!empty($product_update) and $product_update == FALSE)  {
-        ?>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="info-box-2 bg-orange hover-expand-effect">
-                <div class="icon">
-                    <i class="material-icons">sentiment_neutral</i>
-                </div>
-                <div class="content">
-                    <div class="text">Error</div>
-                    <div class="number">Algo salio mal </div>
                 </div>
             </div>
         </div>
@@ -33,7 +19,7 @@
     ?>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
-            <div class="header bg-red">
+            <div class="header bg-blue">
                 <h2><?= $get_product->title ?></h2>
             </div>
             <div class="body">
@@ -75,19 +61,19 @@
                             <div class="form-group form-float">
                                 <label for="category">Categorias</label>
                                 <select class="form-control show-tick" id="category" name="category">
-                                    <option value="0" <?= ($get_product->category == 0 ) ? "selected" : "" ?>>Otras Categorías</option>
-                                    <option value="1" <?= ($get_product->category == 1 ) ? "selected" : "" ?>>Motor y Accesorios</option>
-                                    <option value="2" <?= ($get_product->category == 2 ) ? "selected" : "" ?>>Electrónica</option>
-                                    <option value="3" <?= ($get_product->category == 3 ) ? "selected" : "" ?>>Deporte y Ocio</option>
-                                    <option value="4" <?= ($get_product->category == 4 ) ? "selected" : "" ?>>Muebles, Deco y Jardín</option>
-                                    <option value="5" <?= ($get_product->category == 5 ) ? "selected" : "" ?>>Consolas y Videojuegos</option>
-                                    <option value="6" <?= ($get_product->category == 6 ) ? "selected" : "" ?>>Libros, Películas y Música</option>
-                                    <option value="7" <?= ($get_product->category == 7 ) ? "selected" : "" ?>>Moda y Accesorios</option>
-                                    <option value="8" <?= ($get_product->category == 8 ) ? "selected" : "" ?>>Niños y Bebés</option>
-                                    <option value="9" <?= ($get_product->category == 9 ) ? "selected" : "" ?>>Inmobiliaria</option>
-                                    <option value="10" <?= ($get_product->category == 10 ) ? "selected" : "" ?>>Electrodomésticos</option>
-                                    <option value="11" <?= ($get_product->category == 11 ) ? "selected" : "" ?>>Servicios</option>
-                                    <option value="12" <?= ($get_product->category == 12 ) ? "selected" : "" ?>>Otros</option>
+                                    <option value="0" <?= ($get_product->category == 0) ? "selected" : "" ?>>Otras Categorías</option>
+                                    <option value="1" <?= ($get_product->category == 1) ? "selected" : "" ?>>Motor y Accesorios</option>
+                                    <option value="2" <?= ($get_product->category == 2) ? "selected" : "" ?>>Electrónica</option>
+                                    <option value="3" <?= ($get_product->category == 3) ? "selected" : "" ?>>Deporte y Ocio</option>
+                                    <option value="4" <?= ($get_product->category == 4) ? "selected" : "" ?>>Muebles, Deco y Jardín</option>
+                                    <option value="5" <?= ($get_product->category == 5) ? "selected" : "" ?>>Consolas y Videojuegos</option>
+                                    <option value="6" <?= ($get_product->category == 6) ? "selected" : "" ?>>Libros, Películas y Música</option>
+                                    <option value="7" <?= ($get_product->category == 7) ? "selected" : "" ?>>Moda y Accesorios</option>
+                                    <option value="8" <?= ($get_product->category == 8) ? "selected" : "" ?>>Niños y Bebés</option>
+                                    <option value="9" <?= ($get_product->category == 9) ? "selected" : "" ?>>Inmobiliaria</option>
+                                    <option value="10" <?= ($get_product->category == 10) ? "selected" : "" ?>>Electrodomésticos</option>
+                                    <option value="11" <?= ($get_product->category == 11) ? "selected" : "" ?>>Servicios</option>
+                                    <option value="12" <?= ($get_product->category == 12) ? "selected" : "" ?>>Otros</option>
                                 </select>
                             </div>
                             <input type="hidden" name="id" value="<?= $get_product->id ?>">
@@ -98,19 +84,20 @@
                             
                         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
                             <div id="user-thumbnials">
-                                <a href="/assets/images/products/<?=$get_product->image ? $get_product->image : "default.png" ?>" data-sub-html="<?= $get_product->title ?>">
-                                    <img class="img-responsive thumbnail" src="/assets/images/products/<?= $get_product->image ? $get_product->image : "default.png" ?>">
+                                <a href="<?= ASSETS_IMG_PRODUCTS ?><?=$get_product->image ?: IMG_PRODUCTS_DEFAULT ?>" 
+                                   data-sub-html="<?= $get_product->title ?>">
+                                    <img class="img-responsive thumbnail" 
+                                    src="<?= ASSETS_IMG_PRODUCTS ?><?= $get_product->image ?: IMG_PRODUCTS_DEFAULT ?>"
+                                    alt="<?= $get_product->title ?>">
                                 </a>
                             </div>
                             
                              <div class="form-group form-float">
                                 <div class="form-line">
                                     <p><b>Usuario que publica</b></p>
-                                    <?php
-                                        $get_all_users = $this->Users_model->getAllUsers();
-                                    ?>
                                     <select class="form-control show-tick" name="id_user" data-live-search="true">
                                         <?php
+                                        $get_all_users = $this->Users_model->getAllUsers();
                                         foreach ($get_all_users as $key => $user) {
                                             ?>
                                             <option value="<?= $user->id ?>" <?= ($get_product->id_user == $user->id ) ? "selected" : "" ?> ><?= $user->id ?>:  <?= $user->nickname ?> <?= !empty($user->first_name) ? "(" . $user->first_name . " " . $user->last_name . ")" : "" ?></option>
@@ -129,7 +116,7 @@
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
-            <div class="header bg-red">
+            <div class="header bg-blue">
                 <h2>
                     Actualizar imagen
                     <small><?= $get_product->title ?> </small>
@@ -154,7 +141,8 @@
             </div>
         </div>
     </div>
-
+    
+    
 </div>
 <!-- #END# Basic Validation -->
-<?php var_dump($get_product);  ?>
+<!--<?php var_dump($get_product) ?>-->

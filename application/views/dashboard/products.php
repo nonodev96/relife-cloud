@@ -11,7 +11,7 @@
                 <div class="content">
                     <div class="text">Total de productos</div>
                     <div class="number count-to" data-from="0" data-to="<?= $dashboard["total_products"] ?>" 
-                         data-speed="15" data-fresh-interval="1">
+                         data-speed="1000" data-fresh-interval="1">
                         <?= $dashboard["total_products"] ?>
                     </div>
                 </div>

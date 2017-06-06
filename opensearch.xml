@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+    <ShortName>Re-Life Cloud</ShortName>
+    <Description>Busca productos de segunda mano en Re-life Cloud</Description>
+    <Tags>Re-life</Tags>
+    <InputEncoding>UTF-8</InputEncoding>
+    <Image width="16" height="16" type="image/x-icon">https://relifecloud-nonodev96.c9users.io/favicon.ico</Image>
+
+    <!--<Url xmlns:parameters="http://a9.com/-/spec/opensearch/extensions/parameters/1.0/"
+        type="text/html"
+        template="https://relifecloud-nonodev96.c9users.io/products"
+        parameters:method="POST"
+        parameters:enctype="application/x-www-form-urlencoded">
+        <parameters:Parameter name="search" value="search"/>
+        <parameters:Parameter name="text" value="{searchTerms}"/>
+    </Url>-->
+    <Url type="text/html" method="GET" template="https://relifecloud-nonodev96.c9users.io/products/search/{searchTerms}"/>
+
+    <Url type="application/opensearchdescription+xml" rel="self" template="https://relifecloud-nonodev96.c9users.io/opensearch.xml" />
+    <moz:SearchForm>https://relifecloud-nonodev96.c9users.io</moz:SearchForm>
+    <Contact>administrator@relifecloud.com</Contact>
+    <AdultContent>false</AdultContent>
+</OpenSearchDescription>

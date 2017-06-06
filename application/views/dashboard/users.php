@@ -10,7 +10,7 @@
                 <div class="content">
                     <div class="text">Total de usuarios</div>
                     <div class="number count-to" data-from="0" data-to="<?= $dashboard["total_users"] ?>" 
-                         data-speed="15" data-fresh-interval="1">
+                         data-speed="1000" data-fresh-interval="1">
                         <?= $dashboard["total_users"] ?>
                     </div>
                 </div>

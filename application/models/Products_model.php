@@ -36,6 +36,26 @@ class Products_model extends CI_Model {
         return $this->db->delete('products', array('id' => $id));
     }
     
+    public function search($keyword) {
+        $this->db->like('title', $keyword);
+        $this->db->or_like('description', $keyword);
+        $query = $this->db->get('products');
+        return $query->result();
+    }
+    
+    public function getProductsSearch($data) {
+        if (!empty($data["title"])) $this->db->like('title', $data["title"]);
+        if (!empty($data["description"])) $this->db->or_like('description', $data["description"]);
+        if (!empty($data["starting_price"]["lower"])) $this->db->where('starting_price >=', $data["starting_price"]["lower"]);
+        if (!empty($data["starting_price"]["upper"])) $this->db->where('starting_price <=', $data["starting_price"]["upper"]);
+        if (!empty($data["datetime_product"])) $this->db->where('DATE(datetime_product)', $data["datetime_product"]);
+        if (!empty($data["category"])) $this->db->where('category', $data["category"]);
+        if (!empty($data["location"])) $this->db->like('location', $data["location"]);
+        
+        $query = $this->db->get('products');
+        return $query->result();
+    }
+    
     public function productExist($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('products');

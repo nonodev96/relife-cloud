@@ -57,12 +57,10 @@ $route['translate_uri_dashes'] = FALSE;
 //region User
 $route['api/user']["get"] = 'api/User/malformed';
 $route['api/user/(:num)']["get"] = 'api/User/get/$1';
-
 $route['api/user']["post"] = 'api/User/insert';
 
 $route['api/user']["put"] = 'api/User/malformed';
 $route['api/user/(:num)']["put"] = 'api/User/update/$1';
-
 $route['api/user']["delete"] = 'api/User/malformed';
 $route['api/user/(:num)']["delete"] = 'api/User/delete/$1';
 
@@ -77,22 +75,28 @@ $route['users/uploadImage/(:num)']['post'] = 'Users/uploadImage/$1';
 //endregion
 
 //region Product
-$route['api/product']["get"] = 'api/Product/malformed';
 $route['api/product/(:num)']["get"] = 'api/Product/get/$1';
-
 $route['api/product']["post"] = 'api/Product/insert';
-
-$route['api/product']["put"] = 'api/Product/malformed';
 $route['api/product/(:num)']["put"] = 'api/Product/update/$1';
-
-$route['api/product']["delete"] = 'api/Product/malformed';
 $route['api/product/(:num)']["delete"] = 'api/Product/delete/$1';
 
+$route['api/product/search']["post"] = 'api/Product/search';
+$route['api/product/getAllProducts']["get"] = 'api/Product/getAllProducts';
 $route['api/product/getProductsOfToday']["get"] = 'api/Product/getProductsOfToday';
 $route['api/product/dashboard']["get"] = 'api/Product/dashboard';
 
+$route['products/search/(:any)']["get"] = 'Products/search/$1';
 $route['products/(:num)'] = 'Products/edit/$1';
 $route['products/new'] = 'Products/new_product';
 $route['products/deleteProducts']['post'] = 'Products/deleteProducts';
 $route['products/uploadImage/(:num)']['post'] = 'Products/uploadImage/$1';
+//endregion
+
+//region Sale
+$route['api/sale']["get"] = 'api/Sale/malformed';
+$route['api/sale/(:num)']["get"] = 'api/Sale/get/$1';
+
+$route['api/sale/getAllBids']["get"] = 'api/Sale/getAllBids';
+
+$route['api/sale']["post"] = 'api/Sale/insert';
 //endregion

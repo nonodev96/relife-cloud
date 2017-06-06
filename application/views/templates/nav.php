@@ -21,13 +21,16 @@
     <!-- #END# Overlay For Sidebars -->
     <!-- Search Bar -->
     <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
+        <form action="/products" method="post" autocomplete="off">
+            <input type="hidden" name="search" value="search"/>
+            <div class="search-icon">
+                <i class="material-icons">search</i>
+            </div>
+            <input type="text" name="text" placeholder="Buscar productos">
+            <div class="close-search">
+                <i class="material-icons">close</i>
+            </div>
+        </form>
     </div>
     <!-- #END# Search Bar -->
     <!-- Top Bar -->
@@ -36,7 +39,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="<?=base_url()?>">BACK END - Re Life</a>
+                <a class="navbar-brand title_re_life " href="<?=base_url()?>">Re &nbsp;Life</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -86,7 +89,7 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="/users">Editar usuario</a>
+                                <a href="/users">Usuarios</a>
                             </li>
                             <li>
                                 <a href="/users/new">Nuevo usuario</a>
@@ -103,7 +106,7 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="/products">Editar productos</a>
+                                <a href="/products">Productos</a>
                             </li>
                             <li>
                                 <a href="/products/new">Nuevo producto</a>

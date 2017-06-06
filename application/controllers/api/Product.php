@@ -13,7 +13,9 @@ class Product extends CI_Controller {
     //region CONSTRUCT
     function __construct() {
         parent::__construct();
+        $this->load->model("Users_model");
         $this->load->model("Products_model");
+        $this->load->model("Sale_model");
         $this->output->set_content_type('application/json');
 
         if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -90,12 +92,29 @@ class Product extends CI_Controller {
     //endregion
 
     //region HTTP Methods
+    public function getAllProducts() {
+        $this->status["data"] = $this->Products_model->getAllProducts();
+        $status = 200;
+        $this->show($this->status, $status);
+    }
+    
     public function get($id = 0) {
         $product_exist = $this->Products_model->productExist($id);
         $status = 200;
         if ($product_exist) {
             $product_by_id = $this->Products_model->getProductByID($id);
             $this->status["data"] = $product_by_id[0];
+            
+            $this->status["data"]->max = $this->Sale_model->maxBidByIdProduct($id);
+            $this->status["data"]->min = $this->Sale_model->minBidByIdProduct($id);
+            $getAllBidsByIdProduct = $this->Sale_model->getAllBidsByIdProduct($id);
+            $getAllBids = array();
+            foreach ($getAllBidsByIdProduct as $key => $value) {
+                $tmp = $value;
+                $tmp->user = $this->Users_model->getUserByID($value->id_user)[0];
+                $getAllBids[] = $tmp;
+            }
+            $this->status["data"]->sale = $getAllBids;
         } else {
             $this->status["meta"]["id"] = $id;
             $this->status["meta"]["info"] = "The product no exist";
@@ -230,10 +249,18 @@ class Product extends CI_Controller {
     }
 
     public function search() {
-        echo "search";
-        if (true) {
-
-        }
+        $data = $this->get_json();
+        $status = 200;
+        $getProductsSearchData["title"] = !empty($data["title"])?$data["title"]:null;
+        $getProductsSearchData["description"] = !empty($data["description"])?$data["description"]:null;
+        $getProductsSearchData["datetime_product"] = !empty($data["datetime_product"])?$data["datetime_product"]:null;
+        $getProductsSearchData["starting_price"] = !empty($data["starting_price"])?$data["starting_price"]:null;
+        $getProductsSearchData["category"] = !empty($data["category"])?$data["category"]:0;
+        $getProductsSearchData["category"] = ($getProductsSearchData["category"]!=0)?$getProductsSearchData["category"]:null;
+        $getProductsSearchData["location"] = !empty($data["location"])?$data["location"]:null;
+        
+        $this->status["data"] = $getProductsSearch = $this->Products_model->getProductsSearch($getProductsSearchData);
+        $this->show($this->status, $status);
     }
     //endregion
 
