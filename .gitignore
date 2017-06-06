@@ -31,3 +31,5 @@ CI-PHPStorm-Code-Completion/*
 
 ##Database
 /application/config/database.php
+/assets/images/products/*
+/assets/images/users/*
