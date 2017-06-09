@@ -165,6 +165,18 @@ if ($has_bids) {
                                         </div>
                                     </div>
                                     <?php
+                                } else {
+                                    ?>
+                                    <div class="row">
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                            <form action="/products/deleteBid" method="post">
+                                                <input type="hidden" name="id_product" value="<?= $get_product->id ?>"/>
+                                                <input type="hidden" name="id" value="<?= $value->id ?>"/>
+                                                <input type="submit" class="btn btn-danger m-t-15 waves-effect" value="Borrar"/>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <?php
                                 }
                                 ?>
                                 <!--<?php var_dump($value) ?>-->

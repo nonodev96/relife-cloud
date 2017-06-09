@@ -111,6 +111,7 @@ class Products extends CI_Controller {
         unset($input_post["submit"]);
         if (!empty($input_post)) {
             $data["product_create_id"] = $this->Products_model->insert($input_post);
+            $this->uploadImage($data["product_create_id"]);
             if (is_numeric($data["product_create_id"])) {
                 $this->session->set_tempdata('product_create', TRUE, 5);
                 $data["product_create"] = $this->session->tempdata('product_create') ? TRUE : NULL;

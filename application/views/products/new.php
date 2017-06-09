@@ -23,7 +23,7 @@
             </div>
             <div class="body">
                 <div class="row clearfix">
-                    <form id="form_validation" method="POST" action="/products/new" autocomplete="off">
+                    <form id="form_validation" method="POST" action="/products/new" autocomplete="off" enctype="multipart/form-data">
                 
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group form-float">
@@ -50,6 +50,8 @@
                                     <label class="form-label">Ubicación</label>
                                 </div>
                             </div>
+                            
+                            
                             <div class="form-group form-float">
                                 <label for="category_id">Categoría</label>
                                 <select class="form-control show-tick" id="category_id" name="category" required>
@@ -85,7 +87,13 @@
                                         ?>
                                     </select>
                                 </div>
-                            </div>                            
+                            </div> 
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <p><b>Imagen</b></p>
+                                    <input type="file" class="form-control" name="file" required>
+                                </div>
+                            </div>
                             <input type="hidden" name="submit" value="submit">
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Crear producto</button><br>
                         </div>

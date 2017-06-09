@@ -23,6 +23,7 @@
                         <tbody>
                             <?php
                             foreach ($get_all_products as $value) {
+                                $user_name = !empty($this->Users_model->getUserById($value->id_user)[0]->nickname)?$this->Users_model->getUserById($value->id_user)[0]->nickname:"Usuario eliminado";
                                 ?>
                                 <tr>
                                     <td class="col-md-1"><?= $value->id ?></td>
@@ -31,7 +32,7 @@
                                     <td class="col-md-1"><?= $value->starting_price?$value->starting_price."€":"" ?></td>
                                     <td class="col-md-1 date_time"><?= $value->datetime_product ?></td>
                                     <td class="col-md-1"><?= $value->location ?></td>
-                                    <td class="col-md-1"><?= $this->Users_model->getUserById($value->id_user)[0]->nickname ?></td>
+                                    <td class="col-md-1"><?= $user_name ?></td>
                                 </tr>
                                 <?php
                             }
