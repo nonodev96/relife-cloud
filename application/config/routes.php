@@ -103,4 +103,7 @@ $route['api/sale']["post"] = 'api/Sale/insert';
 
 //region Product
 $route['api/favorites/(:num)']["get"] = 'api/Favorites/get/$1';
+$route['api/favorites']["post"] = 'api/Favorites/insert';
+$route['api/favorites/(:num)']["delete"] = 'api/Favorites/delete/$1';
+
 //endregion

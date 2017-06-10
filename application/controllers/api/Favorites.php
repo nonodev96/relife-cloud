@@ -14,6 +14,7 @@ class Favorites extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model("Users_model");
+        $this->load->model("Products_model");
         $this->load->model("Favorites_model");
         $this->output->set_content_type('application/json');
 
@@ -75,14 +76,63 @@ class Favorites extends CI_Controller {
         $user_exist = $this->Users_model->userExist($id_user);
         $status = 200;
         if ($user_exist) {
-            $user_by_id = $this->Favorites_model->getFavoritesByUserId($id_user);
-            $this->status["data"] = $user_by_id[0];
+            $getFavoritesByUserId = $this->Favorites_model->getFavoritesByUserId($id_user);
+            $this->status["data"] = $getFavoritesByUserId;
         } else {
             $this->status["data"] = false;
             $status = 404;
         }
         $this->show($this->status, $status);
 
+    }
+    
+    public function insert() {
+        $data = $this->getJSON();
+        $http_status = 400;
+        $all_correct["id_user_exist"] = $this->Users_model->userExist($data["id_user"]);
+        $all_correct["id_product_exist"] = $this->Products_model->productExist($data["id_product"]);
+        $all_correct["id_user"] = !empty($data["id_user"]) ? true : false;
+        $all_correct["id_product"] = !empty($data["id_product"]) ? true : false;
+
+        if (!in_array(false, $all_correct)) {
+            $data_to_insert["id_user"] = $data["id_user"];
+            $data_to_insert["id_product"] = $data["id_product"];
+            $favorite_exist = $this->Favorites_model->favoriteExist($data_to_insert["id_user"], $data_to_insert["id_product"]);
+            if (!$favorite_exist) {
+                $insert_id = $this->Favorites_model->insert($data_to_insert);
+                if (!empty($insert_id)) {
+                    $this->status["data"]["id"] = $insert_id;
+                    $http_status = 201;
+                }
+            } else {
+                $this->status["meta"]["error"] = "Favorite exist";
+                $http_status = 403;
+            }
+        } else {
+            $this->all_correct($all_correct);
+
+            $http_status = 400;
+        }
+        $this->show($this->status, $http_status);
+    }
+    
+    public function delete($id = 0) {
+        $favorite_exist_by_id = $this->Favorites_model->favoriteExistById($id);
+        $status = 200;
+        if ($favorite_exist_by_id) {
+            $delete = $this->Favorites_model->deleteById($id);
+            if ($delete) {
+                $this->status["data"]["delete"] = true;
+            } else {
+                $this->status["data"]["delete"] = false;
+                $this->status["meta"]["delete"] = "The favorite could not be deleted";
+            }
+        } else {
+            $this->status["meta"]["delete"] = "The favorite not exist";
+            $this->status["data"]["delete"] = false;
+            $status = 404;
+        }
+        $this->show($this->status, $status);
     }
     //endregion
 
