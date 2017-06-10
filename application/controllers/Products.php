@@ -62,7 +62,7 @@ class Products extends CI_Controller {
         $data["module"]["lightgallery_plugin"] = true;
         $data["module"]["datetimepicker_plugin"] = true;
         $data["module"]["datetimepicker_plugin_edit_user"] = true;
-        $data["get_product"] = $this->Products_model->getProductByID($id);
+        $data["get_product"] = $this->Products_model->getProductById($id);
         $data["get_bids"] = array();
         $data["has_bids"] = $this->Sale_model->hasBids($id);
         if ($data["has_bids"] == TRUE) {
@@ -115,7 +115,7 @@ class Products extends CI_Controller {
             if (is_numeric($data["product_create_id"])) {
                 $this->session->set_tempdata('product_create', TRUE, 5);
                 $data["product_create"] = $this->session->tempdata('product_create') ? TRUE : NULL;
-                $data["get_product"] = $this->Products_model->getProductByID($data["product_create_id"]);
+                $data["get_product"] = $this->Products_model->getProductById($data["product_create_id"]);
                 $data["get_product"] = !empty($data["get_product"]) ? $data["get_product"][0] : array();
             }
         }

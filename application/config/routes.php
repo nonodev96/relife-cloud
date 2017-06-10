@@ -100,3 +100,7 @@ $route['api/sale/getAllBids']["get"] = 'api/Sale/getAllBids';
 
 $route['api/sale']["post"] = 'api/Sale/insert';
 //endregion
+
+//region Product
+$route['api/favorites/(:num)']["get"] = 'api/Favorites/get/$1';
+//endregion

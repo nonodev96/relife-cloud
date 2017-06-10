@@ -102,7 +102,7 @@ class Product extends CI_Controller {
         $product_exist = $this->Products_model->productExist($id);
         $status = 200;
         if ($product_exist) {
-            $product_by_id = $this->Products_model->getProductByID($id);
+            $product_by_id = $this->Products_model->getProductById($id);
             $this->status["data"] = $product_by_id[0];
             
             $this->status["data"]->max = $this->Sale_model->maxBidByIdProduct($id);

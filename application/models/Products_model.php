@@ -12,7 +12,7 @@ class Products_model extends CI_Model {
         return $query->num_rows();
     }
 
-    public function getProductByID($id) {
+    public function getProductById($id) {
         $this->db->select('*');
         $this->db->where('id', $id);
         $query = $this->db->get('products');
@@ -29,7 +29,7 @@ class Products_model extends CI_Model {
     public function updateById($data, $id) {
         $this->db->where('id', $id);
         $this->db->update('products', $data); 
-        return $this->getProductByID($id);
+        return $this->getProductById($id);
     }
     
     public function deleteById($id) {

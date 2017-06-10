@@ -78,6 +78,7 @@
  * @property Layout              $layout               Layout Class
  ***************** YOUR MODELS *****************
  * @property Users_model         $Users_model           ,$user
+ * @property Favorites_model     $Favorites_model       ,$user
  * @property Products_model      $Products_model
  */
 class CI_Controller {
