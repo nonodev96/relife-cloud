@@ -14,13 +14,13 @@ Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE.
 To watch some training videos, visit http://www.youtube.com/user/c9ide
 
 
-##Codeigniter for Api Controller
+## Codeigniter for Api Controller
 
 ```
 CREATE DATABASE menagerie;
 ```
 
-##Install Database 
+## Install Database 
 
 MySQL:
 
@@ -31,7 +31,7 @@ mysql-ctl start
 ```
 
 
-##API Rest FULL Modelo W3C HTTP
+## API Rest FULL Modelo W3C HTTP
 ```
 $route['api/user/(:num)']["get"]    = 'User/get/$1';
 $route['api/user']["post"]          = 'User/insert';
@@ -39,11 +39,11 @@ $route['api/user']["put"]           = 'User/update';
 $route['api/user']["delete"]        = 'User/delete';
 ```
 
-##TimeZone
+## TimeZone
 
 UP1	--> (UTC + 1:00) Berlin, Brussels, Copenhagen, Madrid, Paris, Rome
 
-##Entornos de trabajo
+## Entornos de trabajo
 
 Los entornos de desarrollo han sido Ubuntu 16.04 Xenial Xerus, utilizando el IDE
 Online de Cloud9, y el framework de PHP, Codeigniter para la gestion de los 
@@ -51,7 +51,7 @@ controladores de la API REST FULL, usando su gestion de rutas y (POO)
 Programación orienta a objetos.
 
 
-##Validaciones
+## Validaciones
 
 ```
 NICKNAME:
