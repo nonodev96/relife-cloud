@@ -1,2 +1,2 @@
-special-vendored-path/* linguist-vendored
+assets/js/* linguist-vendored=false
 assets/* linguist-vendored=false
